@@ -134,11 +134,11 @@ These next set of values are multi-line and can be copied to your clipboard with
 ```   
 6. Create another folder to hold the tts, rts, and item files used by the Forecast service.  This folder name should match the Stack Name and S3 bucket name from Step 5 above.  For example, if your Stack Name is abc123, the top-level folder in your S3 bucket should also be named abc123.
 7. Create a <b>rawmeter</b> folder to hold your raw data in the same S3 bucket you created and identified in the cloudformation stacks in Steps 1 and 5 above.  
-8. Download the daily meter data from the London dataset: [EnergyDemand.zip](https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/EnergyDemand.zip) Unzip this file on your laptop and then upload the files in daily_dataset raw data folder to the S3 folder you defined in Step 6. , inside a child <b>rawmeter</b> folder. 
+8. Download the daily meter data from the London dataset: [EnergyDemand.zip](https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/EnergyDemand.zip) Unzip this file on your laptop and then upload the files from the <b>daily_dataset</b> raw data folder to the S3 folder you defined in Step 6. , inside a child <b>rawmeter</b> folder. 
 9. On the Glue console, create a crawler to crawl the 
 
-9. Option A: Resume the overall instruction set for MLOps [here](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/UploadData.md).  This page directs you to download [EnergyDemand.zip](https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/EnergyDemand.zip), uncompress it and then upload to S3.
-   Option B: Run the 'Workflow' Step Function, which will execute the complete end-to-end forecasting workflow.   It will  
+10. (Option A:) Run the 'Workflow' Step Function, which will execute the complete end-to-end forecasting workflow.   It will...   (Option B:) Resume the overall instruction set for MLOps [here](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/UploadData.md).  This page directs you to download [EnergyDemand.zip](https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/EnergyDemand.zip), uncompress it and then upload to S3.
+     
 
 ## Conclusion
 
