@@ -133,14 +133,15 @@ These next set of values are multi-line and can be copied to your clipboard with
 }
 ```   
 6. Create another folder to hold the tts, rts, and item files used by the Forecast service.  This folder name should match the Stack Name and S3 bucket name from Step 5 above.  For example, if your Stack Name is abc123, the top-level folder in your S3 bucket should also be named abc123.
-7. Create a <b>rawdata</b> folder to hold your raw data in the same S3 bucket you created and identified in the cloudformation stacks in Steps 1 and 5 above.  
-8. Download the daily meter data from the London dataset: [EnergyDemand.zip](https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/EnergyDemand.zip) Unzip this file on your laptop and then upload the files from the <b>daily_dataset</b> raw data folder to the S3 folder you defined in Step 6. , inside a child <b>rawdata</b> folder. 
+7. Create a <b>rawdata/</b> folder to hold your raw data in the same S3 bucket you created and identified in the cloudformation stacks in Steps 1 and 5 above.  
+8. Download the daily meter data from the London dataset: [EnergyDemand.zip](https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/EnergyDemand.zip) Unzip this file on your laptop and then upload the files from the <b>daily_dataset</b> raw data folder to the S3 folder you defined in Step 6. , inside a child <b>rawdata/</b> folder. 
 9. On the Glue console, create a database in the glue catalog and define a crawler to crawl the raw data folder.   For more information on how to do this, see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html).   Run the crawler.
 10. Once the crawler creates the raw table in the Glue Data Catalog, use Athena to shape the raw data into a format that matehes the shape of the TTS file.   Use the following query as an example:
 
 	 ```
      SELECT lclid as "item_id", energy_sum as "target_value",date_add('year', 6, DATE(day)) as "timestamp", '51.509865_-0.118092' as "location" FROM "AwsDataCatalog"."raw-data"."rawdata" order by location, item_id
      ```
+    Note: this query does many things:  1) it reshapes the raw London meter data to conform to the TTS item schema, 2) it establishes a location field (of type geolocation, with a lat/long format) and sets it to a valid value for London, 3) It bumps the dates forward 6 years, in order to fit a date range where AWS Forecast has weather history.
 
 10. (Option A: easiest) Run the 'Workflow' Step Function, which will execute the complete end-to-end forecasting workflow.   It will...   (Option B: to learn each sub-step in the workflows) Resume the overall instruction set for MLOps [here](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/UploadData.md).  
      
