@@ -143,6 +143,8 @@ These next set of values are multi-line and can be copied to your clipboard with
      ```
     Note: this query does many things:  1) it reshapes the raw London meter data to conform to the TTS item schema, 2) it establishes a location field (of type geolocation, with a lat/long format) and sets it to a valid value for London, 3) It bumps the dates forward 6 years, in order to fit a date range where AWS Forecast has weather history.
 
+10. Copy the SQL statement above and paste it into the <b>DatasetGroup/QueryTTS<b> parameter in Parameter Store.  
+
 10. (Option A: easiest) Run the 'Workflow' Step Function, which will execute the complete end-to-end forecasting workflow.   It will...   (Option B: to learn each sub-step in the workflows) Resume the overall instruction set for MLOps [here](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/UploadData.md).  
      
 
