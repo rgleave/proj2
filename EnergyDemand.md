@@ -145,20 +145,19 @@ These next set of values are multi-line and can be copied to your clipboard with
 
 11. Copy the SQL statement above and paste it into the <b>DatasetGroup/QueryTTS<b> parameter in Parameter Store.  
 
-    a. In the AWS Console, search for "Parameter Store" and navigate to that service page.
-    b. A list of all parameters is provided.  Type in 'query' in the search bar.  
-    c. In the filtered list, select the <b>DatasetGroup/QueryTTS<b> parameter.   
-    d. Click the 'EDIT' button and replace the parameter's 'value' with the 
-    e. Allow the state machine to run.   This may take several hours to finish. 
+- a. In the AWS Console, search for "Parameter Store" and navigate to that service page.
+- b. A list of all parameters is provided.  Type in 'query' in the search bar.  
+- c. In the filtered list, select the <b>DatasetGroup/QueryTTS<b> parameter.   
+- d. Click the 'EDIT' button and replace the parameter's 'value' with the 
+- e. Allow the state machine to run.   This may take several hours to finish. 
 
 12. Run the 'Workflow' state machine which was created in the Step Functions service.  This will execute the complete end-to-end forecasting workflow.   
 
-    a. In the AWS Console, search for "Step Functions" and navigate to that service page. 
-    b. Once in AWS Step Functions, a list of all state machines is provided.  Type the name of your StackName in the "Search for state machines" control to filter the list, if needed.
-    c. In the filtered list, one state machine is named <b>Workflow<b>.  Click on the link name to open this state machine.
-    d. Next, simply click Start Execution towards the upper-right of the screen.  
-    e. Click Start Execution on the secondary screen without changing anything.
-    f. Allow the state machine to run.   This may take several hours to finish.  This workflow will perform ETL to shape your raw data, create and train a predictor, and generate a forecast.
+- a. In the AWS Console, search for "Step Functions" and navigate to that service page. 
+- b. Once in AWS Step Functions, a list of all state machines is provided.  Type the name of your StackName in the "Search for state machines" control to filter the list, if needed.
+- c. In the filtered list, one state machine is named <b>Workflow<b>.  Click on the link name to open this state machine.
+- d. Next, simply click Start Execution towards the upper-right of the screen.  
+- e. Click Start Execution on the secondary screen without changing anything.  Allow the state machine to run.   This may take several hours to finish.  This workflow will perform ETL to shape your raw data, create and train a predictor, and generate a forecast.
 
 Note:  As an alternative option (recommended if you wish to learn each sub-step in the workflows) resume the overall instruction set for MLOps [here](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/UploadData.md).  Run them in the same order as the 'Workflow' state machine.
 
