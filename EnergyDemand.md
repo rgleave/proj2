@@ -147,7 +147,7 @@ These next set of values are multi-line and can be copied to your clipboard with
 
   - In the AWS Console, search for "Parameter Store" and navigate to that service page.
   - A list of all parameters is provided.  Type in 'query' in the search bar.  
-  - In the filtered list, select the <b>DatasetGroup/QueryTTS<b><b> parameter.   
+  - In the filtered list, select the DatasetGroup/QueryTTS parameter.   
   - Click the 'EDIT' button and replace the parameter's 'value' with the 
   - Allow the state machine to run.   This may take several hours to finish. 
 
