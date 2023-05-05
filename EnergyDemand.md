@@ -143,7 +143,7 @@ These next set of values are multi-line and can be copied to your clipboard with
      ```
     Note: this query does many things:  1) it reshapes the raw London meter data to conform to the TTS item schema, 2) it establishes a location field (of type geolocation, with a lat/long format) and sets it to a valid value for London, 3) It bumps the dates forward 6 years, in order to fit a date range where AWS Forecast has weather history.
 
-11. Copy the SQL statement above and paste it into the <b>DatasetGroup/QueryTTS<b> parameter in Parameter Store.  
+11. Copy the SQL statement above and paste it into the DatasetGroup/QueryTTS parameter in Parameter Store.  
 
   - In the AWS Console, search for "Parameter Store" and navigate to that service page.
   - A list of all parameters is provided.  Type in 'query' in the search bar.  
