@@ -109,7 +109,7 @@ These next set of values are multi-line and can be copied to your clipboard with
 }
 ```   
 
-<b>SchemaTTS</b>
+<b>SchemaRTS</b>
 ```
 {
     "Attributes": [
@@ -143,11 +143,11 @@ These next set of values are multi-line and can be copied to your clipboard with
      ```
     Note: this query does many things:  1) it reshapes the raw London meter data to conform to the TTS item schema, 2) it establishes a location field (of type geolocation, with a lat/long format) and sets it to a valid value for London, 3) It bumps the dates forward 6 years, in order to fit a date range where AWS Forecast has weather history.
 
-11. Copy the SQL statement above and paste it into the DatasetGroup/QueryTTS parameter in Parameter Store.  
+11. Copy the SQL statement above and paste it into the TTS query parameter in Parameter Store.  
 
   - In the AWS Console, search for "Parameter Store" and navigate to that service page.
   - A list of all parameters is provided.  Type in 'query' in the search bar.  
-  - In the filtered list, select the DatasetGroup/QueryTTS parameter.   
+  - In the filtered list, select the <b>DatasetGroup/QueryTTS</b> parameter.   
   - Click the 'EDIT' button and replace the parameter's 'value' with the 
   - Allow the state machine to run.   This may take several hours to finish. 
 
@@ -155,7 +155,7 @@ These next set of values are multi-line and can be copied to your clipboard with
 
   - In the AWS Console, search for "Step Functions" and navigate to that service page. 
   - Once in AWS Step Functions, a list of all state machines is provided.  Type the name of your StackName in the "Search for state machines" control to filter the list, if needed.
-  - In the filtered list, one state machine is named <b>Workflow<b>.  Click on the link name to open this state machine.
+  - In the filtered list, one state machine is named <b>Workflow</b>.  Click on the link name to open this state machine.
   - Next, simply click Start Execution towards the upper-right of the screen.  
   - Click Start Execution on the secondary screen without changing anything.  Allow the state machine to run.   This may take several hours to finish.  This workflow will perform ETL to shape your raw data, create and train a predictor, and generate a forecast.
 
