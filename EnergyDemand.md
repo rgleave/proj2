@@ -84,7 +84,7 @@ These next set of values are multi-line and can be copied to your clipboard with
 }
 ```   
 
-<b>SchemaRTS</b>
+<b>SchemaTTS</b>
 ```
 {
 
