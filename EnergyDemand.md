@@ -145,7 +145,18 @@ These next set of values are multi-line and can be copied to your clipboard with
 
 10. Copy the SQL statement above and paste it into the <b>DatasetGroup/QueryTTS<b> parameter in Parameter Store.  
 
-10. (Option A: easiest) Run the 'Workflow' Step Function, which will execute the complete end-to-end forecasting workflow.   It will...   (Option B: to learn each sub-step in the workflows) Resume the overall instruction set for MLOps [here](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/UploadData.md).  
+11. Run the 'Workflow' state machine which was created in the Step Functions service.  This will execute the complete end-to-end forecasting workflow.   This may take several hours to finish. 
+
+    This step guides how to create a dataset group as a one-time event for each workload.  Ongoing, you should plan on running the import data, create predictor and create forecast as appropriate, as a series, according to your schedule -- which could be daily, weekly, or otherwise. 
+
+    1. In the AWS Console, navigate to the AWS Step Functions service.  You can do this by typing S3 in the "Step Functions" control in the black menu bar and hitting enter.
+    2. Once in AWS Step Functions, a list of all state machines is provided.  Type the name of your StackName in the "Search for state machines" control to filter the list, if needed.
+    3. In the filtered list, one state machine has Create-Dataset-Group.  Click on the link name to open this state machine.
+    4. Next, simply click Start Execution towards the upper-right of the screen.  
+    5. Click Start Execution on the secondary screen without changing anything.
+    6. Allow the state machine to run, the process only takes about one minute.  When it's done, the Execution Status should move from a blue-colored Running to a green-colored Succeeded.
+
+  (Alternative option: recommended if you wish to learn each sub-step in the workflows Resume the overall instruction set for MLOps [here](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/UploadData.md).  Run them in the same order as the 'Workflow' state machine. ) 
      
 
 ## Conclusion
