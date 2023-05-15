@@ -61,23 +61,35 @@ These next set of values are multi-line and can be copied to your clipboard with
         "AttributeType": "string"
       },
       {
-        "AttributeName": "substation",
+        "AttributeName": "block_id",
         "AttributeType": "string"
       },
       {
-        "AttributeName": "loop",
+        "AttributeName": "servicetransformerid",
         "AttributeType": "string"
       },
       {
-        "AttributeName": "feeder",
+        "AttributeName": "distributiontransformerid",
         "AttributeType": "string"
       },
       {
-        "AttributeName": "power_line",
+        "AttributeName": "substationid",
         "AttributeType": "string"
       },
       {
-        "AttributeName": "steiner_node",
+        "AttributeName": "substation_name",
+        "AttributeType": "string"
+      },
+      {
+        "AttributeName": "lat_long",
+        "AttributeType": "string"
+      },
+      {
+        "AttributeName": "grid_id",
+        "AttributeType": "string"
+      },
+      {
+        "AttributeName": "grid_name",
         "AttributeType": "string"
       }
     ]
