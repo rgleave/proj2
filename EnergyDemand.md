@@ -23,13 +23,13 @@ Instead of following the [normal set of steps provided for the MLOps workflow](h
 |DatasetGroupName|energydemo|
 |DatasetIncludeItem|false|
 |DatasetIncludeRTS|false|
-|ForecastForecastTypes|["0.50"]|
+|ForecastForecastTypes|["0.50", "0.60", "0.70", "0.80", "0.90"]|
 |PredictorExplainPredictor| TRUE
 |PredictorForecastDimensions |["location"]|
 |PredictorForecastFrequency |D|
 |PredictorForecastHorizon | 14|
 |PredictorForecastOptimizationMetric| AverageWeightedQuantileLoss|
-|PredictorForecastTypes | ["0.30", "0.40", "0.50", "0.60", "0.70"]|
+|PredictorForecastTypes | ["0.50", "0.60", "0.70", "0.80", "0.90"]|
 |S3Bucket | {your bucket} (same as Dependency stack) |
 |SNSEndpoint | {your email} |
 |TimestampFormatRTS |yyyy-MM-dd|
