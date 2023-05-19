@@ -21,11 +21,11 @@ Instead of following the [normal set of steps provided for the MLOps workflow](h
 |DatasetGroupFrequencyRTS|D|
 |DatasetGroupFrequencyTTS|D|
 |DatasetGroupName|energydemo|
-|DatasetIncludeItem|false|
+|DatasetIncludeItem|true|
 |DatasetIncludeRTS|false|
 |ForecastForecastTypes|["0.50", "0.60", "0.70", "0.80", "0.90"]|
 |PredictorExplainPredictor| TRUE
-|PredictorForecastDimensions |["location"]|
+|PredictorForecastDimensions |["block_id","location"]|
 |PredictorForecastFrequency |D|
 |PredictorForecastHorizon | 14|
 |PredictorForecastOptimizationMetric| AverageWeightedQuantileLoss|
@@ -136,6 +136,10 @@ These next set of values are multi-line and can be copied to your clipboard with
       {
         "AttributeName": "location",
         "AttributeType": "geolocation"
+      },
+      {
+        "AttributeName": "block_id",
+        "AttributeType": "string"
       }
     ]
 }
