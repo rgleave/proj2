@@ -26,14 +26,14 @@ Instead of following the [normal set of steps provided for the MLOps workflow](h
 |ForecastForecastTypes|["0.50"]|
 |PredictorExplainPredictor| true
 |PredictorForecastDimensions |["lat_long"]|
-|PredictorForecastFrequency |<mark>15min</mark>|
-|PredictorForecastHorizon | <mark>16</mark>|
+|PredictorForecastFrequency |**_15min_**|
+|PredictorForecastHorizon | **_16_**|
 |PredictorForecastOptimizationMetric| AverageWeightedQuantileLoss|
 |PredictorForecastTypes | ["0.30", "0.40", "0.50", "0.60", "0.70"]|
-|S3Bucket | <mark>{your bucket}</mark> (same as Dependency stack) |
-|SNSEndpoint | <mark>{your email}</mark> |
+|S3Bucket | **_{your bucket}_** (same as Dependency stack) |
+|SNSEndpoint | **_{your email}_** |
 |TimestampFormatRTS |yyyy-MM-dd|
-|TimestampFormatTTS |<mark>yyyy-MM-dd HH:mm:ss</mark>|
+|TimestampFormatTTS |**_yyyy-MM-dd HH:mm:ss_**|
 
 These next set of values are multi-line and can be copied to your clipboard with the copy icon and pasted into the CloudFormation parameter.
 
