@@ -13,14 +13,14 @@ Instead of following the [normal set of steps provided for the MLOps workflow](h
      https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/forecast-mlops-energy-plus-weather.yaml
      ```
 
-5.  Specify stack details: several parameters are collected that define how the entire workload behaves.  Use these overrides (most are provided by the Cloudformation template).  NOTE: for the <b>S3Bucket</b> parameter, use the same name you provided for the in Step 1 above.  Also, please be aware that this template includes additional parameters to turn on the weather index.  You can examine the cloudformation template to understand which geolocation and time zone options were defaulted to turn on the weather index.
+5.  Specify stack details: several parameters are required that define how the entire workload behaves.  Most of the parameters are provided by the Cloudformation template, however be sure to provide override values for the parameters which are highlighted below.  NOTE: for the <b>S3Bucket</b> parameter, use the same name you provided for the in Step 1 above.  Also, please be aware that this template includes additional parameters to turn on the weather index.  You can examine the cloudformation template to understand which geolocation and time zone options were defaulted to turn on the weather index.
 
 | Parameter | Recommended Value |
 |--|--|
-|Stack name|energyusageforecasting|
+|Stack name|**_energyusageforecasting_**|
 |DatasetGroupFrequencyRTS|D|
 |DatasetGroupFrequencyTTS|**_15min_**|
-|DatasetGroupName|energyusageforecasting
+|DatasetGroupName|**_energyusageforecasting_**
 |DatasetIncludeItem|true|
 |DatasetIncludeRTS|false|
 |ForecastForecastTypes|["0.50"]|
