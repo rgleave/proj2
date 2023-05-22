@@ -19,7 +19,7 @@ Instead of following the [normal set of steps provided for the MLOps workflow](h
 |--|--|
 |Stack name|energyusageforecasting|
 |DatasetGroupFrequencyRTS|D|
-|DatasetGroupFrequencyTTS|==15min==|
+|DatasetGroupFrequencyTTS|**_15min_**|
 |DatasetGroupName|energyusageforecasting
 |DatasetIncludeItem|true|
 |DatasetIncludeRTS|false|
