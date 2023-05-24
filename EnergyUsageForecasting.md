@@ -13,7 +13,7 @@ Instead of following the [normal set of steps provided for the MLOps workflow](h
      https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/forecast-mlops-energy-plus-weather.yaml
      ```
 
-5. You must set several parameters which define how the entire workload behaves.  Most of them are provided by the Cloudformation template, however be sure to provide override values for the parameters which are highlighted below.  NOTE: for the <b>S3Bucket</b> parameter, use the same name you provided for the in Step 1 above.  Also, please be aware that this template includes additional parameters to turn on the weather index.  You can examine the cloudformation template to understand which geolocation and time zone options were defaulted to turn on the weather index.
+5. You must set several parameters which define how the entire workload behaves.  Most of them are provided by the Cloudformation template, however be sure to provide override values for the parameters which are highlighted below.  Also, for the <b>S3Bucket</b> parameter, use the same name you provided for the in Step 1 above. (NOTE: please be aware that this template includes additional parameters to turn on the weather index.  You can examine the cloudformation template to understand which geolocation and time zone options were defaulted by the template.)
 
 | Parameter | Recommended Value |
 |--|--|
@@ -23,13 +23,13 @@ Instead of following the [normal set of steps provided for the MLOps workflow](h
 |DatasetGroupName|**_energyusageforecasting_**
 |DatasetIncludeItem|true|
 |DatasetIncludeRTS|false|
-|ForecastForecastTypes|["0.50"]|
+|ForecastForecastTypes|["0.60", "0.70", "0.80", "0.90", "0.99"]|
 |PredictorExplainPredictor| true
-|PredictorForecastDimensions |["lat_long"]|
+|PredictorForecastDimensions |["reading_type"]|
 |PredictorForecastFrequency |**_15min_**|
 |PredictorForecastHorizon | **_16_**|
 |PredictorForecastOptimizationMetric| AverageWeightedQuantileLoss|
-|PredictorForecastTypes | ["0.30", "0.40", "0.50", "0.60", "0.70"]|
+|PredictorForecastTypes | ["0.60", "0.70", "0.80", "0.90", "0.99"]|
 |S3Bucket | **_{your bucket}_** (same as Dependency stack) |
 |SNSEndpoint | **_{your email}_** |
 |TimestampFormatRTS |yyyy-MM-dd|
@@ -148,7 +148,7 @@ These next set of values are multi-line and can be copied to your clipboard with
 6. In the <b>S3Bucket</b> you created in Step 1 above, create a folder to hold the tts, rts, and item files used by the Forecast service.  This folder name should match the Stack Name and Dataset Name from Step 5 above.  For example, since your Stack Name is "energyusageforecasting", the top-level folder in your S3 bucket should also be named "energyusageforecasting".
 7. In the <b>S3Bucket</b> you created in Step 1 above, create a <b>"rawdata"</b> folder to hold your raw data.  
 8. Download the 'smart_meter_data.zip' file contained in this folder in the repository, unzip it on your laptop, and then upload the folders <b>energyusage</b> and <b>topology</b> from the <b>smart_meter_data</b> to the <b>rawdata</b> subfolder created in step 7. 
-9. On the [Glue console](https://us-east-1.console.aws.amazon.com/glue/home?region=us-east-1#/v2/getting-started) , create a database in the glue catalog and define a crawler to crawl the raw data folder.   For more information on how to do this, see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html).   Run the crawler.
+9. On the [Glue console](https://us-east-1.console.aws.amazon.com/glue/home?region=us-east-1#/v2/getting-started) , create a Glue Database called 'rawdata' in the glue catalog and define a crawler to crawl the raw data folder created in step 6.  Make sure to configure the crawler to create the table in the 'rawdata' Glue Database.   For more information on how to do this, see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html).   Run the crawler.
 10. Once the crawler creates the raw table in the Glue Data Catalog, use Athena to create a query to shape the raw data into a format that matehes the shape of the TTS file.  Since the synthetic data sample you uploaded was already shaped correctly, you can use the following simple query as an example:
 
 	 ```
