@@ -25,7 +25,7 @@ First you need to prepare the environment to hold and process the sample data.  
 
 	 ```
      https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/forecast-mlops-energy-plus-weather.yaml
-     ```
+
 
   b) Once the cloudformation script completes successfully, navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see a new database called 'sample_database'.  Select it.  Within that database, you should see 3 new tables pointing to the sample data files you uploaded in step 1c above.  (Note: For more information on how to do this, see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
 
