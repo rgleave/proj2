@@ -19,9 +19,9 @@ First you need to prepare the environment to hold and process the sample data.  
 
 **Step 2: Building Foundational Infrastructure for the Workshop**
 
-  Note: Even though this is a fully-serverless solution, you will need to set up some basic security roles and system parameters.  The Workshop Dependency Stack is created by launching a cloudformation stack which builds basic infrastructure and permissions needed for the workshop, as well as some Glue databases and tables.  You do not need to change any of the pre-set parameters.   (Note: for more background on the purpose of this infrastructure, refer to the [MLOps dependency stack](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/DependencyStack.md).
+ Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions needed for the workshop, as well as some Glue databases and tables.  A cloudformation template is provided to do that for you.  Download and examine the Workshop Dependency Stack cloudformation template.  Read the comments to embedded in the template and pay particular attention to how you are able to automatically build AWS GLUE databases and tables with code.   
 
-  a)  Navigate to [CloudFormation service](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.  Launch the following cloudformation template to build the resources.
+  a)  Navigate to [CloudFormation service](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.  Launch the following cloudformation template to build the resources.   (Note: You do not need to change any of the pre-set parameters.   (Note: for more background on the purpose of this infrastructure, refer to the [MLOps dependency stack](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/DependencyStack.md).)
 
   ```
   https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/workshop-dependency-stack.yaml
@@ -77,7 +77,7 @@ For each new forecast that you choose to generate, you will first need to create
 
   b) Navigate to the Cloudformation console.  Select "Create Stack, with new resources (Standard)".  For the template source, choose 'Upload a template file'.   Select the template you just downloaded. 
   
-  c) Review the default Cloudformation parameters provided by the Cloudformation template.  When you are ready, launch the template.   It should take about 5 minutes to create the forecasting pipeline and other necessary resources.
+  c) Review the default Cloudformation parameters provided by the Cloudformation template.  Pay particular attention to the schemas definitions.  We will refer to them again in a following step.   When you are ready, launch the template.   It should take about 5 minutes to create the forecasting pipeline and other necessary resources.
   
   Important Notes: 
   - for the stack name, use the same name that you chose for the folder in Step 1. 
@@ -220,7 +220,7 @@ This next set of values are multi-line and can be copied to your clipboard with 
 
 **Step 2: Shaping Raw Data for Amazon Forecast**
 
-During Module One of this workshop, you cleaned and enhanced the raw meter data.   During execution, our pipeline needs to shape that raw data even more, tranformng it into the standardized format required Amazon Forecast.   That shaping is performed by  Amazon Athena, which executes specific SQL queries.   Since the pipeline runs automatically, we will store the SQL statements in system parameters so that the forecast pipeline can executed them automatically, during the appropriate step in the process.
+During Module One of this workshop, you cleaned and enhanced the raw meter data.   During execution, our pipeline needs to shape that raw data even more, tranformng it into the standardized formats required Amazon Forecast (the schemas we defined in the previous step)  The data shaping is performed by  Amazon Athena, which executes specific SQL queries.   Since the pipeline runs automatically, we will store the SQL statements in system parameters so that the forecast pipeline can executed them automatically, during the appropriate step in the process.  
 
 Amazon Forecast has 3 pre-defined schemas for importing data into the service.  
 
