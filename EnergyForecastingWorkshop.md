@@ -13,9 +13,9 @@ First you need to prepare the environment to hold and process the sample data.  
   b) Upload the sample data for the workshop to your bucket.  (Note: you should have previously downloaded the sample data set onto your local machine.)  Find the folder named 'workshop-data' on your local machine and upload it into the S3 'energy-forecasts' bucket.   
   
   When the upload finishes, explore this folder.  You should find the three subfolders listed below: 
-    - raw-meter-daily  This contains the actual raw data collected from London smart meters.
-    - synthetic-grid-master-data   Synthetic metadata about the grid to demonstrate more advanced use cases on the sample dashboards.
-    - synthetic-meter-master-data  More synthetic metadata about the meters to demonstrate additional use cases.
+    * raw-meter-daily  This contains the actual raw data collected from London smart meters.
+    * synthetic-grid-master-data   Synthetic metadata about the grid to demonstrate more advanced use cases on the sample dashboards.
+    * synthetic-meter-master-data  More synthetic metadata about the meters to demonstrate additional use cases.
 
 **Step 2: Building Foundational Infrastructure for the Workshop**
 
