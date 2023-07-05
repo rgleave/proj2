@@ -12,10 +12,7 @@ First you need to prepare the environment to hold and process the sample data.  
 
   b) Upload the sample data for the workshop to your bucket.  (Note: you should have previously downloaded the sample data set onto your local machine.)  Find the folder named 'workshop-data' on your local machine and upload it into the S3 'energy-forecasts' bucket.   
   
-  When the upload finishes, explore this folder.  You should find the three subfolders listed below: 
-    * raw-meter-daily  This contains the actual raw data collected from London smart meters.
-    * synthetic-grid-master-data   Synthetic metadata about the grid to demonstrate more advanced use cases on the sample dashboards.
-    * synthetic-meter-master-data  More synthetic metadata about the meters to demonstrate additional use cases.
+  When the upload finishes, explore this folder.  You should find the three subfolders: 1) **raw-meter-daily** - which contains the actual raw data collected from London smart meters, 2) **synthetic-grid-master-data** - containing synthetic metadata about the grid to demonstrate more advanced use cases on the sample dashboards, 3) **synthetic-meter-master-data** - additional synthetic metadata about the meters to demonstrate additional use cases.
 
 **Step 2: Building Foundational Infrastructure for the Workshop**
 
@@ -285,3 +282,18 @@ The steps above help you understand how produce a forecast on a sample dataset. 
 
 
 ## MODULE FOUR - CREATING VISUALIZATIONS AND DASHBOARDS FROM THE DATA
+
+**Step 1: Generate export files for Amazon Quicksight**
+
+a) Navigate to the Athena console and execute the following SQL statement to generate a raw data export table.  This statement will join the raw meter data with grid and meter metadata tables to create a single, fully-attributed export file.  
+
+```
+create table london_meter_table 
+    WITH (
+          external_location = 's3://energy-forecasts/workshop_data/london_meter_data')
+as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "item_id", energy_sum as "target_value", date_add('year', 6, DATE(day)) as "timestamp" FROM "AwsDataCatalog"."sample_database"."raw_meter_table"
+
+```
+
+b) Next, execute the following Athena SQL statement to generate a fully-attributed Forecast table by joining the forecast data with grid and meter metadata tables.
+
