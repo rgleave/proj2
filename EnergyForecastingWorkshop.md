@@ -262,7 +262,7 @@ b) Copy the SQL statement above and paste it into the TTS query parameter in Par
 c) Repeat the steps you followed above to shape an item file for the Forecast service.  Item files are optional, however we will shape one to illustrate the process.   Copy the SQL statement below and test it using Athena.
 
   ```
-    SELECT a.item_id, b.servicetransformerid, b.distributiontransformerid, b.substationid, b.substation_name, b.lat_long, b.grid_id, b.grid_name FROM "AwsDataCatalog"."raw-data"."london_meter_data_with_block" as a  left join "AwsDataCatalog"."raw-data"."london_meter_info_cleaned" as b on a.block_id=b.block_id;
+  SELECT a.item_id, b.servicetransformerid, b.distributiontransformerid, b.substationid, b.substation_name, b.lat_long, b.grid_id, b.grid_name FROM "AwsDataCatalog"."sample_database"."london_meter_table" as a  left join "AwsDataCatalog"."sample_database"."grid_master_table" as b on a.block_id=b.block_id;
   ```
 
   If the query runs successfully, follow the steps in 2b above to save the query in the parameter named: /forecast/dailyforecast/DatasetGroup/QueryITEM.
@@ -270,10 +270,10 @@ c) Repeat the steps you followed above to shape an item file for the Forecast se
   Once you are done, move on to the next module of this workshop.
 
 
-## MODULE THREE -- RUNNING YOUR FIRST PIPELINE
+## MODULE THREE: RUNNING YOUR FIRST PIPELINE
 
 
-1. Run the 'Create-Dataset-Group' state machine which was created in the Step Functions service.  This creates your data set group in the AWS Forecast service. 
+1. Run the 'Create-Dataset-Group' state machine which was created in the Step Functions service.  This creates your data set group in the AWS Forecast service.   Do the following:
 
   - In the AWS Console, search for "Step Functions" and navigate to that service page. 
   - Once in AWS Step Functions, a list of all state machines is provided.  Type the name of your StackName in the "Search for state machines" control to filter the list, if needed.
