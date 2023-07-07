@@ -6,7 +6,7 @@ For background on building automated pipelines for Amazon Forecast, refer to the
 
 First you need to prepare the environment to hold and process the sample data.    Follow the steps below:
 
-**Step 1: Getting data for the Workshop**
+**Step 1: Get data for the Workshop**
 
   a) Create an S3 bucket to hold your data (e.g. 'energy-forecasts').  (Note: remember the name of this S3 bucket. You will need it for subsequest steps).  
 
@@ -17,7 +17,7 @@ First you need to prepare the environment to hold and process the sample data.  
   - **synthetic-grid-master-data** - containing synthetic metadata about the grid to demonstrate more advanced use cases on the sample dashboards
   - **synthetic-meter-master-data** - additional synthetic metadata about the meters to demonstrate additional use cases.
 
-**Step 2: Setting up Security, Parameters, and Raw Database Tables**
+**Step 2: Set up Security, Parameters, and Raw Database Tables**
 
  Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions, plus some Glue databases and tables.  A cloudformation template is provided to do that for you.  Download and examine the Dependency Stack cloudformation template.  Read the comments to embedded in the template and pay particular attention to how you are able to automatically build AWS GLUE databases and tables with code.   
 
@@ -31,7 +31,7 @@ First you need to prepare the environment to hold and process the sample data.  
 
   b) Once the cloudformation script completes successfully, navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see a new database called 'sample_database'.  Select it, and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above.  (Note: For more information on how to do this, see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
 
-**Step 3: Preparing Raw Meter Data for Processing** 
+**Step 3: Prepare Raw Meter Data for Processing** 
 This is done by executing a SQL statement using Athena, Amazon's serverless query engine.   
 
   a) First, navigate to the Athena console and make sure you have selected 'sample_database' from Database dropdown (left side of screen).
@@ -48,17 +48,18 @@ as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "ite
 
   Once the query has completed, navigate to the S3 console and note that a new sub-folder called 'london_meter_data' has been created within the 'workshop_data' folder.  Within that folder you will find a new data set.   Using the S3-Select operation (see instructions here) note the differences between this new data set and raw meter data that you uploaded in Step 1.   
 
+  Also navigate to the Glue console and verify that the query created a Glue table called **london_meter_table** which points to the modified raw data file in S3.
 
 
 **Recap:  What we Learned in this Module**
 
 - How to automatically generate Glue databases and tables using Cloudformation.
-- How to use Athena to generate a refined data set from raw data and simultaneously register that as a new Glue tables.
+- How to use Athena to generate a refined data set from raw data and simultaneously register that as a new Glue table.
 
 
 
 
-## MODULE TWO: - BUILDING A FORECAST PIPELINE
+## MODULE TWO: BUILDING A FORECAST PIPELINE
 
 
 The previous module established refined data sets in preparation for building forecasts against that data.   In this module, we will create the pipeline infrastructure needed to load this data into Amazon forecast.   
@@ -70,7 +71,7 @@ For each new forecast that you choose to generate, you will first need to create
   a) Go to the S3 console and select the bucket you created in Step 1 of Module One. 
   b) Create a folder named 'daily-forecast' to hold the tts, rts, and item files created by the Forecast service.   Remember the name of this folder.   You will need it for the next step.
 
-**Step 2: Building the Forecast Infrastructure**
+**Step 2: Create Infrastructure for Forecasting**
 
   a) Download the following cloudformation template to build the resources.
 
@@ -90,7 +91,7 @@ For each new forecast that you choose to generate, you will first need to create
 
 | Parameter | Recommended Value |
 |--|--|
-|Stack name|energydemo|
+|Stack name|daily-forecast|
 |DatasetGroupFrequencyRTS|D|
 |DatasetGroupFrequencyTTS|D|
 |DatasetGroupName|energydemo|
@@ -223,7 +224,7 @@ This next set of values are multi-line and can be copied to your clipboard with 
 
 **Step 2: Shaping Raw Data for Amazon Forecast**
 
-During Module One of this workshop, you cleaned and enhanced the raw meter data.   During execution, our pipeline needs to shape that raw data even more, tranformng it into the standardized formats required Amazon Forecast (the schemas we defined in the previous step)  The data shaping is performed by  Amazon Athena, which executes specific SQL queries.   Since the pipeline runs automatically, we will store the SQL statements in system parameters so that the forecast pipeline can executed them automatically, during the appropriate step in the process.  
+ As part of Module One, you cleaned and enhanced the raw meter data.   Before generating a forecast, our pipeline needs to shape that raw data even more, tranformng it into the standardized formats required by Amazon Forecast (the schemas we defined in the previous **Step 1**) The data shaping is performed by  Amazon Athena, which executes specific SQL queries.   Since the pipeline runs automatically, we will store the SQL statements in system parameters so that the forecast pipeline can executed them automatically, during the appropriate step in the process.  
 
 Amazon Forecast has 3 pre-defined schemas for importing data into the service.  
 
