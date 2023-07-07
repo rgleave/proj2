@@ -235,7 +235,9 @@ Amazon Forecast has 3 pre-defined schemas for importing data into the service.
 - RTS file:
 
 
-We will use Athena to shape the raw data into a format that matches the shape of the TTS file as well as the ITEM file.  Do the following:
+We will use Athena to shape the raw data into a format that matches the shape of the TTS file as well as the ITEM file.  
+
+Do the following:
 
 a) Copy the SQL statement below and run it in the Athena query console to test that it is working properly.  
 
@@ -258,7 +260,7 @@ c) Repeat the steps you followed above to shape an item file for the Forecast se
 
   ```
     SELECT a.item_id, b.servicetransformerid, b.distributiontransformerid, b.substationid, b.substation_name, b.lat_long, b.grid_id, b.grid_name FROM "AwsDataCatalog"."raw-data"."london_meter_data_with_block" as a  left join "AwsDataCatalog"."raw-data"."london_meter_info_cleaned" as b on a.block_id=b.block_id;
-    ```
+  ```
 
   If the query runs successfully, follow the steps in 2b above to save the query in the parameter named: /forecast/dailyforecast/DatasetGroup/QueryITEM.
 
