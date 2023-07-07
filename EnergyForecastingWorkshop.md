@@ -226,7 +226,7 @@ This next set of values are multi-line and can be copied to your clipboard with 
 
 **Step 2: Shaping Raw Data for Amazon Forecast**
 
- As part of Module One, you cleaned and enhanced the raw meter data.   Before generating a forecast, our pipeline needs to shape that raw data even more, tranformng it into the standardized formats required by Amazon Forecast (the schemas we defined in the previous **Step 1**) The data shaping is performed by  Amazon Athena, which executes specific SQL queries.   Since the pipeline runs automatically, we will store the SQL statements in system parameters so that the forecast pipeline can executed them automatically, during the appropriate step in the process.  
+ As part of Module One, you cleaned and enhanced the raw meter data.   Before generating a forecast, our pipeline needs to shape that raw data even more, tranforming it into the standardized formats required by Amazon Forecast (the schemas we defined in the previous **Step 1**).  The pipeline use Amazon Athena to perform the data shaping by executing specific SQL queries.   Since the pipeline runs unattended, we will store these SQL statements in system parameters so that the forecast pipeline can executed them automatically at the appropriate step in the process.  
 
 Amazon Forecast has 3 pre-defined schemas for importing data into the service.  
 
@@ -285,7 +285,6 @@ Amazon Forecast has 3 pre-defined schemas for importing data into the service.
 
 ## Conclusion
 The steps above help you understand how produce a forecast on a sample dataset.  Please use overrides as a way to learn how to adapt data to your bespoke schema and use case.  If you have any questions, please reach out to your AWS Solutions Architect or account team.
-
 
 
 
