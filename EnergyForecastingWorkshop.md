@@ -41,7 +41,7 @@ This is done by executing a SQL statement using Athena, Amazon's serverless quer
 ```
 create table london_meter_table 
     WITH (
-          external_location = 's3://energy-forecasts/workshop-data/london_meter-data')
+          external_location = 's3://energy-forecasts/workshop-data/london-meter-data')
 as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "item_id", energy_sum as "target_value", date_add('year', 6, DATE(day)) as "timestamp" FROM "AwsDataCatalog"."sample_database"."raw_meter_table"
 
 ```
