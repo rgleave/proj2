@@ -81,12 +81,14 @@ For each new forecast that you choose to generate, you will first need to create
 
   b) Navigate to the Cloudformation console.  Select "Create Stack, with new resources (Standard)".  For the template source, choose 'Upload a template file'.   Select the template you just downloaded. 
   
-  c) Review the default Cloudformation parameters provided by the Cloudformation template.  Pay particular attention to the schemas definitions.  We will refer to them again in a following step.   When you are ready, launch the template.   It should take about 5 minutes to create the forecasting pipeline and other necessary resources.
+  c) Review the default Cloudformation parameters provided by the Cloudformation template.  Each parameter controls some aspect of the Amazon Forecasting engine.   Pay particular attention to the schemas definitions.  We will refer to them again in a future step.   
+  
+  When you are ready, launch the template.   It should take about 5 minutes to create the forecasting pipeline and other necessary resources.
   
   Important Notes: 
-  - for the stack name, use the same name that you chose for the folder in Step 1. 
-  - for the <b>S3Bucket</b> parameter, enter the name of the folder you created in Step 1 of Module One. 
-  - for the Dataset Group name, also enter the name of the folder you created in Module One. 
+  - for the stack name, use the same name that you chose for the folder in Step 1 of this module. 
+  - for the <b>S3Bucket</b> parameter, enter the name of the bucket you created in Step 1 of Module One. 
+  - for the Dataset Group name, also enter the name of the folder you created in Step 1 of this module. 
   
 
 | Parameter | Recommended Value |
