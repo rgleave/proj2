@@ -85,7 +85,7 @@ For each new forecast that you choose to generate, you will first need to create
   
   Important Notes: 
   - for the stack name, use the same name that you chose for the folder in Step 1. 
-  - for the <b>S3Bucket</b> parameter, enter the name of the folder you created in Module One. 
+  - for the <b>S3Bucket</b> parameter, enter the name of the folder you created in Step 1 of Module One. 
   - for the Dataset Group name, also enter the name of the folder you created in Module One. 
   
 
@@ -94,7 +94,7 @@ For each new forecast that you choose to generate, you will first need to create
 |Stack name|daily-forecast|
 |DatasetGroupFrequencyRTS|D|
 |DatasetGroupFrequencyTTS|D|
-|DatasetGroupName|energydemo|
+|DatasetGroupName|daily-forecast|
 |DatasetIncludeItem|true|
 |DatasetIncludeRTS|false|
 |ForecastForecastTypes|["0.50", "0.60", "0.70", "0.80", "0.90"]|
