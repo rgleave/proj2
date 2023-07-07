@@ -36,12 +36,12 @@ This is done by executing a SQL statement using Athena, Amazon's serverless quer
 
   a) First, navigate to the Athena console and make sure you have selected 'sample_database' from Database dropdown (left side of screen).
 
-  a) Copy the SQL statement below and run it in the query window.  It creates a new copy of the raw meter data in a new Glue table which is opmtimized for weather forecasting and also for data visualization.  
+  a) Copy the SQL statement below and run it in the Athena query window.  It creates a new copy of the raw meter data in a new Glue table which is opmtimized for weather forecasting and also for data visualization.  
 
 ```
 create table london_meter_table 
     WITH (
-          external_location = 's3://energy-forecasts/workshop_data/london_meter_data')
+          external_location = 's3://energy-forecasts/workshop-data/london_meter-data')
 as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "item_id", energy_sum as "target_value", date_add('year', 6, DATE(day)) as "timestamp" FROM "AwsDataCatalog"."sample_database"."raw_meter_table"
 
 ```
