@@ -27,7 +27,7 @@ First you need to prepare the environment to hold and process the sample data.  
   https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/workshop-dependency-stack.yaml
   ```
 
-    Note: for more background on the purpose of this infrastructure, refer to the [MLOps dependency stack](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/DependencyStack.md).
+  Note: for more background on the purpose of this infrastructure, refer to the [MLOps dependency stack](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/DependencyStack.md).
 
   b) Once the cloudformation script completes successfully, navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see a new database called 'sample_database'.  Select it, and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above.  (Note: For more information on how to do this, see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
 
