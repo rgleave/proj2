@@ -243,19 +243,21 @@ Amazon Forecast has 3 pre-defined schemas for importing data into the service.
     SELECT a.item_id, a.target_value, a.timestamp, b.lat_long, a.block_id FROM "AwsDataCatalog"."sample_database"."london_meter_table" as a  left join "AwsDataCatalog"."sample_database"."grid_master_table" as b on a.block_id=b.block_id;
      ```
 
-  b) Copy the SQL statement above and paste it into the TTS query parameter in Parameter Store.  
+    Compare the query results to the structure of the TTS file in Step 1.
+
+  b) Copy the SQL statement above and paste it into the TTS query parameter in Parameter Store (see steps below) 
 
   - In the AWS Console, search for "Parameter Store" and navigate to that service page.
   - A list of all parameters is provided.  Type in 'query' in the search bar.  
-  - In the filtered list, select the <b>DatasetGroup/QueryTTS</b> parameter.   
-  - Click the 'EDIT' button and replace the parameter's 'value' with the 
-  - Allow the state machine to run.   This may take several hours to finish. 
+  - In the filtered list, select the <b>DatasetGroup/QueryTTS</b> parameter (e.g. /forecast/dailyforecast/DatasetGroup/SchemaTTS) 
+  - Click the 'EDIT' button and replace the parameter's 'value' with the SQL statement in step 2a above.
 
-13.  Repeat the process above to copy the SQL statement below and paste it into the QueryITEM query parameter in Parameter Store.  
+  c) Repeat the process above to copy the SQL statement below and paste it into the QueryITEM query parameter in Parameter Store.  
 
 	 ```
       SELECT a.item_id, b.servicetransformerid, b.distributiontransformerid, b.substationid, b.substation_name, b.lat_long, b.grid_id, b.grid_name FROM "AwsDataCatalog"."raw-data"."london_meter_data_with_block" as a  left join "AwsDataCatalog"."raw-data"."london_meter_info_cleaned" as b on a.block_id=b.block_id;
      ```
+
 
 
 
