@@ -235,12 +235,12 @@ Amazon Forecast has 3 pre-defined schemas for importing data into the service.
 - RTS file:
 
 
-  a) First, we will use Athena to shape the raw data into a format that matches the shape of the TTS file.  Copy the SQL statement below and run it in the Athena query console to test that it is working properly.  
+  a) First, we need a Athena to shape the raw data into a format that matches the shape of the TTS file.  Copy the SQL statement below and run it in the Athena query console to test that it is working properly.  
 
     Note: this query does several things:  1) reshapes the raw London meter data to conform to the TTS item schema, 2) creates a block_id field in the file (important for next step), 3) bumps the dates forward 6 years, in order to fit a date range where AWS Forecast has weather history.
 
 	 ```
-    SELECT a.item_id, a.target_value, a.timestamp, b.lat_long FROM "AwsDataCatalog"."sample_database"."london_meter_table" as a  left join "AwsDataCatalog"."sample_database"."grid_master_table" as b on a.block_id=b.block_id;
+    SELECT a.item_id, a.target_value, a.timestamp, b.lat_long, a.block_id FROM "AwsDataCatalog"."sample_database"."london_meter_table" as a  left join "AwsDataCatalog"."sample_database"."grid_master_table" as b on a.block_id=b.block_id;
      ```
 
   b) Copy the SQL statement above and paste it into the TTS query parameter in Parameter Store.  
