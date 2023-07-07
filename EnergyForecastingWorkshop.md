@@ -56,7 +56,7 @@ as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "ite
 - How to automatically generate Glue databases and tables using Cloudformation.
 - How to use Athena to generate a refined data set from raw data and simultaneously register that as a new Glue table.
 
-
+You are now ready to move on to the next module of this workshop.
 
 
 ## MODULE TWO: BUILDING A FORECAST PIPELINE
@@ -235,30 +235,34 @@ Amazon Forecast has 3 pre-defined schemas for importing data into the service.
 - RTS file:
 
 
-  a) First, we need a Athena to shape the raw data into a format that matches the shape of the TTS file.  Copy the SQL statement below and run it in the Athena query console to test that it is working properly.  
+We will use Athena to shape the raw data into a format that matches the shape of the TTS file as well as the ITEM file.  Do the following:
 
-    Note: this query does several things:  1) reshapes the raw London meter data to conform to the TTS item schema, 2) creates a block_id field in the file (important for next step), 3) bumps the dates forward 6 years, in order to fit a date range where AWS Forecast has weather history.
+a) Copy the SQL statement below and run it in the Athena query console to test that it is working properly.  
 
-	 ```
-    SELECT a.item_id, a.target_value, a.timestamp, b.lat_long, a.block_id FROM "AwsDataCatalog"."sample_database"."london_meter_table" as a  left join "AwsDataCatalog"."sample_database"."grid_master_table" as b on a.block_id=b.block_id;
-     ```
+  Note: this query does several things:  1) reshapes the raw London meter data to conform to the TTS item schema, 2) creates a block_id field in the file (important for next step), 3) bumps the dates forward 6 years, in order to fit a date range where AWS Forecast has weather history.
 
-    Compare the query results to the structure of the TTS file in Step 1.
+  ```
+  SELECT a.item_id, a.target_value, a.timestamp, b.lat_long, a.block_id FROM "AwsDataCatalog"."sample_database"."london_meter_table" as a  left join "AwsDataCatalog"."sample_database"."grid_master_table" as b on a.block_id=b.block_id;
+    ```
 
-  b) Copy the SQL statement above and paste it into the TTS query parameter in Parameter Store (see steps below) 
+  Compare the query results to the structure of the TTS file in Step 1.
 
-  - In the AWS Console, search for "Parameter Store" and navigate to that service page.
-  - A list of all parameters is provided.  Type in 'query' in the search bar.  
-  - In the filtered list, select the <b>DatasetGroup/QueryTTS</b> parameter (e.g. /forecast/dailyforecast/DatasetGroup/SchemaTTS) 
-  - Click the 'EDIT' button and replace the parameter's 'value' with the SQL statement in step 2a above.
+b) Copy the SQL statement above and paste it into the TTS query parameter in Parameter Store (see steps below) 
 
-  c) Repeat the process above to copy the SQL statement below and paste it into the QueryITEM query parameter in Parameter Store.  
+- In the AWS Console, search for "Parameter Store" and navigate to that service page.
+- A list of all parameters is provided.  Type in 'query' in the search bar.  
+- In the filtered list, select the <b>DatasetGroup/QueryTTS</b> parameter (e.g. /forecast/dailyforecast/DatasetGroup/QueryTTS) 
+- Click the 'EDIT' button and replace the parameter's 'value' with the SQL statement in step 2a above.
 
-	 ```
-      SELECT a.item_id, b.servicetransformerid, b.distributiontransformerid, b.substationid, b.substation_name, b.lat_long, b.grid_id, b.grid_name FROM "AwsDataCatalog"."raw-data"."london_meter_data_with_block" as a  left join "AwsDataCatalog"."raw-data"."london_meter_info_cleaned" as b on a.block_id=b.block_id;
-     ```
+c) Repeat the steps you followed above to shape an item file for the Forecast service.  Item files are optional, however we will shape one to illustrate the process.   Copy the SQL statement below and test it using Athena.
 
+  ```
+    SELECT a.item_id, b.servicetransformerid, b.distributiontransformerid, b.substationid, b.substation_name, b.lat_long, b.grid_id, b.grid_name FROM "AwsDataCatalog"."raw-data"."london_meter_data_with_block" as a  left join "AwsDataCatalog"."raw-data"."london_meter_info_cleaned" as b on a.block_id=b.block_id;
+    ```
 
+  If the query runs successfully, follow the steps in 2b above to save the query in the parameter named: /forecast/dailyforecast/DatasetGroup/QueryITEM.
+
+  Once you are done, move on to the next module of this workshop.
 
 
 ## MODULE THREE -- RUNNING YOUR FIRST PIPELINE
