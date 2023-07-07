@@ -12,19 +12,24 @@ First you need to prepare the environment to hold and process the sample data.  
 
   b) Upload the sample data for the workshop to your bucket.  (Note: you should have previously downloaded the sample data set onto your local machine.)  Find the folder named 'workshop-data' on your local machine and upload it into the S3 'energy-forecasts' bucket.   
   
-  When the upload finishes, explore this folder.  You should find the three subfolders: 1) **raw-meter-daily** - which contains the actual raw data collected from London smart meters, 2) **synthetic-grid-master-data** - containing synthetic metadata about the grid to demonstrate more advanced use cases on the sample dashboards, 3) **synthetic-meter-master-data** - additional synthetic metadata about the meters to demonstrate additional use cases.
+  When the upload finishes, navigate to the S3 console, then finda and explore this folder.  You should find the three subfolders.
+  - **raw-meter-daily** - which contains the actual raw data collected from London smart meters, 
+  - **synthetic-grid-master-data** - containing synthetic metadata about the grid to demonstrate more advanced use cases on the sample dashboards
+  - **synthetic-meter-master-data** - additional synthetic metadata about the meters to demonstrate additional use cases.
 
-**Step 2: Building Foundational Infrastructure for the Workshop**
+**Step 2: Setting up Security, Parameters, and Raw Database Tables**
 
- Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions needed for the workshop, as well as some Glue databases and tables.  A cloudformation template is provided to do that for you.  Download and examine the Workshop Dependency Stack cloudformation template.  Read the comments to embedded in the template and pay particular attention to how you are able to automatically build AWS GLUE databases and tables with code.   
+ Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions, plus some Glue databases and tables.  A cloudformation template is provided to do that for you.  Download and examine the Dependency Stack cloudformation template.  Read the comments to embedded in the template and pay particular attention to how you are able to automatically build AWS GLUE databases and tables with code.   
 
-  a)  Navigate to [CloudFormation service](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.  Launch the following cloudformation template to build the resources.   (Note: You do not need to change any of the pre-set parameters.   (Note: for more background on the purpose of this infrastructure, refer to the [MLOps dependency stack](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/DependencyStack.md).)
+  a)  Navigate to [CloudFormation service](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.  Launch the following cloudformation template to build the resources.   Note: You do not need to change any of the pre-set parameters.
 
   ```
   https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/workshop-dependency-stack.yaml
   ```
 
-  b) Once the cloudformation script completes successfully, navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see a new database called 'sample_database'.  Select it.  Within that database, you should see 3 new tables pointing to the sample data files you uploaded in step 1c above.  (Note: For more information on how to do this, see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
+    Note: for more background on the purpose of this infrastructure, refer to the [MLOps dependency stack](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/DependencyStack.md).
+
+  b) Once the cloudformation script completes successfully, navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see a new database called 'sample_database'.  Select it, and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above.  (Note: For more information on how to do this, see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
 
 **Step 3: Preparing Raw Meter Data for Processing** 
 This is done by executing a SQL statement using Athena, Amazon's serverless query engine.   
@@ -41,7 +46,7 @@ as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "ite
 
 ```
 
-  Once the query has completed, navigate to the S3 console and note that a new sub-folder called 'london_meter_data' has been created within the 'workshop_data' folder.  Within that folder you will find a new data set.   Using the S3-Select operation (see instructions here) note the differences between this new data set and raw meter data that you uploaded in step 1c.   
+  Once the query has completed, navigate to the S3 console and note that a new sub-folder called 'london_meter_data' has been created within the 'workshop_data' folder.  Within that folder you will find a new data set.   Using the S3-Select operation (see instructions here) note the differences between this new data set and raw meter data that you uploaded in Step 1.   
 
 
 
@@ -62,7 +67,8 @@ The previous module established refined data sets in preparation for building fo
 
 For each new forecast that you choose to generate, you will first need to create a new folder to hold the output files generated by Amazon Forecast.   You are normally free to choose any name for a forecast folder.   For this workshop however, please use the folder names designated below. 
 
-  a) Since we are create a daily forecast in this example, create folder named 'daily-forecast' to hold the tts, rts, and item files created by the Forecast service.   Remember the name of this folder.   You will need it for the next step.
+  a) Go to the S3 console and select the bucket you created in Step 1 of Module One. 
+  b) Create a folder named 'daily-forecast' to hold the tts, rts, and item files created by the Forecast service.   Remember the name of this folder.   You will need it for the next step.
 
 **Step 2: Building the Forecast Infrastructure**
 
