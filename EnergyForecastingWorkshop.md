@@ -241,11 +241,14 @@ Do the following:
 
 a) Copy the SQL statement below and run it in the Athena query console to test that it is working properly.  
 
-  Note: this query does several things:  1) reshapes the raw London meter data to conform to the TTS item schema, 2) creates a block_id field in the file (important for next step), 3) bumps the dates forward 6 years, in order to fit a date range where AWS Forecast has weather history.
+  Note: this query does several things:
+  - reshapes the raw London meter data to conform to the TTS item schema
+  - creates a block_id field in the file (important for next step)
+  - bumps the dates forward 6 years, in order to fit a date range where AWS Forecast has weather history.
 
   ```
   SELECT a.item_id, a.target_value, a.timestamp, b.lat_long, a.block_id FROM "AwsDataCatalog"."sample_database"."london_meter_table" as a  left join "AwsDataCatalog"."sample_database"."grid_master_table" as b on a.block_id=b.block_id;
-    ```
+  ```
 
   Compare the query results to the structure of the TTS file in Step 1.
 
