@@ -35,15 +35,19 @@ First you need to prepare the environment to hold and process the sample data.  
 
 Often raw meter data must be must be cleaned and validated before it can be used for forecasting.   An easy way to do that is by using Athena, Amazon's serverless query engine.   
 
-  a) Before you use Athena for the first time, you will need to create a folder in S3 to store query results.  Go to the S3 console.  Select your workshop bucket and create a subfolder for holding query results.   Remember the name you chose for the next step.
+  a) Before you use Athena for the first time, you will need to create a folder in S3 to store query results.  Go to the S3 console.  Select your workshop bucket and create a subfolder for holding query results.   Remember the name.  You will need it for the next step.
 
-  b) Navigate to the Athena console.  At the top of the Athena screen you should see this dialog box:  "Before you run your first query, you need to set up a query result location in Amazon S3".  
+  b) Navigate to the Athena console.  At the top of the Athena screen you should see a dialog box that says:  "Before you run your first query, you need to set up a query result location in Amazon S3".  
 
   ![Athena console - setting up a location for query results](https://github.com/rgleave/proj2/blob/master/workshop-athena-query-screen.png)
 
-  Click the "Edit Settings" button on the dialog box.   On the "Manage Settings" screen with appears next, click the "Browse S3" button.  Find the new folder you created in Step 3a and select it.
+  Click the "Edit Settings" button on the dialog box.   On the "Manage Settings" screen with appears next, click the "Browse S3" button.  Find the new folder you created in Step 3a and choose it.   
 
-  c) Return to the Athena console.  Make sure you have selected 'sample_database' from Database dropdown (left side of screen).  Notice that you can expand each of the exist tables on the left to see the table structures.
+    ![Manage Athena settings](https://github.com/rgleave/proj2/blob/master/workshop-manage-settings-bucket.png)
+
+  Finally, press the "Save" button to finish this setup.
+
+  c) Return to the Athena console.  Open the query window (you may need to select the "Editor" tab).  Make sure you have selected 'sample_database' from Database dropdown (left side of screen).  Notice that you can expand each of the exist tables on the left to see the table structures.
   
   d) Copy the SQL statement below and run it in the Athena query window.  This statement creates a new copy of the raw meter data in a new Glue table which is structured better for weather forecasting and also for joining with other data for visualization.  
 
