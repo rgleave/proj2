@@ -43,7 +43,7 @@ Often raw meter data must be must be cleaned and validated before it can be used
 
   Click the "Edit Settings" button on the dialog box.   On the "Manage Settings" screen with appears next, click the "Browse S3" button.  Find the new folder you created in Step 3a and choose it.   
 
-    ![Manage Athena settings](https://github.com/rgleave/proj2/blob/master/workshop-manage-settings-bucket.png)
+  ![Manage Athena settings](https://github.com/rgleave/proj2/blob/master/workshop-manage-settings-bucket.png)
 
   Finally, press the "Save" button to finish this setup.
 
