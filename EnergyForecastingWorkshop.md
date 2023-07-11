@@ -8,11 +8,11 @@ First you need to prepare the environment to hold and process the sample data.  
 
 **Step 1: Get data for the Workshop**
 
-  a) Create an S3 bucket to hold your data (e.g. 'energy-forecasts').  (Note: remember the name of this S3 bucket. You will need it for subsequest steps).  
+  a) Create an S3 bucket to hold your data.  (Note: remember the name of this S3 bucket. You will need it for subsequest steps).  
 
-  b) Upload the sample data for the workshop to your bucket.  (Note: you should have previously downloaded the sample data set onto your local machine.)  Find the folder named 'workshop-data' on your local machine and upload it into the S3 'energy-forecasts' bucket.   
+  b) Upload the sample data for the workshop to your bucket.  (Note: you should have previously downloaded the sample data set onto your local machine.)  Find the folder named 'workshop-data' on your local machine and upload it into the S3 bucket you created in step 1a above.   This may take about 5 minutes.
   
-  When the upload finishes, navigate to the S3 console, then finda and explore this folder.  You should find the three subfolders.
+  c) When the upload finishes, navigate to the S3 console, then find and explore this folder.  You should find these three subfolders:
   - **raw-meter-daily** - which contains the actual raw data collected from London smart meters, 
   - **synthetic-grid-master-data** - containing synthetic metadata about the grid to demonstrate more advanced use cases on the sample dashboards
   - **synthetic-meter-master-data** - additional synthetic metadata about the meters to demonstrate additional use cases.
@@ -21,7 +21,7 @@ First you need to prepare the environment to hold and process the sample data.  
 
  Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions, plus some Glue databases and tables.  A cloudformation template is provided to do that for you.  Download and examine the Dependency Stack cloudformation template.  Read the comments to embedded in the template and pay particular attention to how you are able to automatically build AWS GLUE databases and tables with code.   
 
-  a)  Navigate to [CloudFormation service](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.  Launch the following cloudformation template to build the resources.   Note: You do not need to change any of the pre-set parameters.
+  a)  Navigate to [CloudFormation service](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.   Download and launch the following cloudformation template to build the resources.   Note: You do not need to change any of the pre-set parameters.
 
   ```
   https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/workshop-dependency-stack.yaml
@@ -29,14 +29,15 @@ First you need to prepare the environment to hold and process the sample data.  
 
   Note: for more background on the purpose of this infrastructure, refer to the [MLOps dependency stack](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/DependencyStack.md).
 
-  b) Once the cloudformation script completes successfully, navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see a new database called 'sample_database'.  Select it, and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above.  (Note: For more information on how to do this, see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
+  b) Once the cloudformation script completes successfully, navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see two new databases.  Select the 'sample_database' and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above. These Glue structures were created automatically by the Cloudformation template that you just executed.  Examine the cloudformation script to see how that was done.  (Note: For more information on AWS Glue see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
 
 **Step 3: Prepare Raw Meter Data for Processing** 
-This is done by executing a SQL statement using Athena, Amazon's serverless query engine.   
 
-  a) First, navigate to the Athena console and make sure you have selected 'sample_database' from Database dropdown (left side of screen).
+Often raw meter data must be must be cleaned and validated before it can be used for forecasting.   An easy way to do that is by using Athena, Amazon's serverless query service.   
 
-  a) Copy the SQL statement below and run it in the Athena query window.  It creates a new copy of the raw meter data in a new Glue table which is opmtimized for weather forecasting and also for data visualization.  
+  a) First, navigate to the Athena console and make sure you have selected 'sample_database' from Database dropdown (left side of screen).  Notice that you can expand each of the exist tables on the left to see the table structures.
+
+  a) Copy the SQL statement below and run it in the Athena query window.  This statement creates a new copy of the raw meter data in a new Glue table which is prepared for weather forecasting and also for joining with other data for visualization.  
 
 ```
 create table london_meter_table 
