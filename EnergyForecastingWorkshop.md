@@ -23,13 +23,11 @@ First you need to prepare the environment to hold and process the sample data.  
 
   a) Create a folder in S3 to store query results.  Go to the S3 console.  Select your workshop bucket and create a subfolder for holding query results.   Remember the name.  You will need it for the next step.
 
-  b) Navigate to the Athena console.  At the top of the Athena screen you should see a dialog box that says:  "Before you run your first query, you need to set up a query result location in Amazon S3".  
+  b) Navigate to the Athena console.  At the top of the Athena screen you may see a dialog box that says:  "Before you run your first query, you need to set up a query result location in Amazon S3".  If so, click the "Edit Settings" button on the dialog box.  (NOTE: if you do not see the dialog box, select the "Settings" tab)
 
   ![Athena console - setting up a location for query results](https://github.com/rgleave/proj2/blob/master/workshop-athena-query-screen.png)
-
-  Click the "Edit Settings" button on the dialog box.  (NOTE: if you do not see the dialog box, select the "Settings" tab)
   
-  On the "Manage Settings" screen with appears next, click the "Browse S3" button.  Find the new folder you created in Step 3a and choose it.  Then, press the "Save" button to finish this setup.
+  You should now see the "Manage Settings" screen.  Click the "Browse S3" button.  Find the new folder you created in Step 3a and choose it.  Then, press the "Save" button to finish this setup.
 
   ![Manage Athena settings](https://github.com/rgleave/proj2/blob/master/workshop-manage-settings-bucket.png)
 
