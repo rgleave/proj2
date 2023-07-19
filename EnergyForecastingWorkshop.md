@@ -17,9 +17,133 @@ First you need to prepare the environment to hold and process the sample data.  
   - **synthetic-grid-master-data** - containing synthetic metadata about the grid to demonstrate more advanced use cases on the sample dashboards
   - **synthetic-meter-master-data** - additional synthetic metadata about the meters to demonstrate additional use cases.
 
-**Step 2: Set up Security, Parameters, and Raw Database Tables**
+**Step 2: Setting up Athena**
 
- Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions, plus some Glue databases and tables.  A cloudformation template is provided to do that for you.  Download and examine the Dependency Stack cloudformation template.  Read the comments to embedded in the template and pay particular attention to how you are able to automatically build AWS GLUE databases and tables with code.   
+  Athena is Amazon's serverless query engine, which allows you to read and transform raw data files using standard SQL commands.   We will use Athena to perform several different data functions during the workshop.   But first, before you use Athena for the first time, you will need to you will take some steps to configure it: 
+
+  a) Create a folder in S3 to store query results.  Go to the S3 console.  Select your workshop bucket and create a subfolder for holding query results.   Remember the name.  You will need it for the next step.
+
+  b) Navigate to the Athena console.  At the top of the Athena screen you should see a dialog box that says:  "Before you run your first query, you need to set up a query result location in Amazon S3".  
+
+  ![Athena console - setting up a location for query results](https://github.com/rgleave/proj2/blob/master/workshop-athena-query-screen.png)
+
+  Click the "Edit Settings" button on the dialog box.  (NOTE: if you do not see the dialog box, select the "Settings" tab)
+  
+  On the "Manage Settings" screen with appears next, click the "Browse S3" button.  Find the new folder you created in Step 3a and choose it.  Then, press the "Save" button to finish this setup.
+
+  ![Manage Athena settings](https://github.com/rgleave/proj2/blob/master/workshop-manage-settings-bucket.png)
+
+  Now we are ready to run SQL statements.
+
+**Step 3: Establishing Glue Datbases and Tables**
+
+  Before you can interact with raw text data, you must apply a structure (schema) over the data set to help Athena perform queries.  That process is called cataloging and consists of creating databases and tables.  There are several ways to create databases and catalogs.  We will use Athena to do so. Navigate to the Athena console, select the Editor tab, and run the following queries:
+
+  a) This query creates a database to catalog our sample data.
+
+```
+create database sample_database;
+
+```
+
+  b) This query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
+
+```
+CREATE EXTERNAL TABLE sample_database.raw_meter_table (
+  lclid string, 
+  day string,
+  energy_median float,
+  energy_mean float,
+  energy_max float,
+  energy_count bigint,
+  energy_std float,
+  energy_sum float,
+  energy_min float,
+  )
+ROW FORMAT DELIMITED 
+  FIELDS TERMINATED BY ',' 
+STORED AS INPUTFORMAT 
+  'org.apache.hadoop.mapred.TextInputFormat' 
+OUTPUTFORMAT 
+  'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION
+  's3://[YOUR-BUCKET-HERE]/workshop-data/synthetic-meter-master-data/'
+TBLPROPERTIES (
+  'classification'='csv', 
+  'columnsOrdered'='true', 
+  'compressionType'='none', 
+  'delimiter'=',', 
+  'skip.header.line.count'='1', 
+  'typeOfData'='file');
+
+```
+
+  c) This query applies a schema to the **synthetic-grid-master-data** file which was uploaded in step 1c, then also stores it as a table named **grid_master_table** in the samples database.   NOTE: remember to replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
+
+```
+CREATE EXTERNAL TABLE sample_database.grid_master_table (
+  block_id string, 
+  servicetransformerid string,
+  distributiontransformerid string,
+  capacity string,
+  substationid string,
+  substation_name string,
+  address string,
+  lat_long string,
+  lat float,
+  long float,
+  gridid string,
+  grid_name string
+  )
+ROW FORMAT DELIMITED 
+  FIELDS TERMINATED BY ',' 
+STORED AS INPUTFORMAT 
+  'org.apache.hadoop.mapred.TextInputFormat' 
+OUTPUTFORMAT 
+  'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION
+  's3://[YOUR-BUCKET-HERE]/workshop-data/synthetic-meter-master-data/'
+TBLPROPERTIES (
+  'classification'='csv', 
+  'columnsOrdered'='true', 
+  'compressionType'='none', 
+  'delimiter'=',', 
+  'skip.header.line.count'='1', 
+  'typeOfData'='file');
+
+```
+
+
+  c) This query applies a schema to the **synthetic-meter-master-data** which was uploaded in step 1c, then also stores it as a table named **meter_master_table** in the samples database.  NOTE: remember to replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
+
+
+```
+CREATE EXTERNAL TABLE sample_database.meter_master_table (
+  meter_id string, 
+  meter_type string)
+ROW FORMAT DELIMITED 
+  FIELDS TERMINATED BY ',' 
+STORED AS INPUTFORMAT 
+  'org.apache.hadoop.mapred.TextInputFormat' 
+OUTPUTFORMAT 
+  'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION
+  's3://[YOUR-BUCKET-HERE]/workshop-data/synthetic-meter-master-data/'
+TBLPROPERTIES (
+  'classification'='csv', 
+  'columnsOrdered'='true', 
+  'compressionType'='none', 
+  'delimiter'=',', 
+  'skip.header.line.count'='1', 
+  'typeOfData'='file');
+
+```
+  
+  Now let's check to see the results of our work.  Navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see two new databases.  Select the 'sample_database' and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above. These Glue structures were created automatically by the Cloudformation template that you just executed.  Examine the cloudformation script to see how that was done.  (Note: For more information on AWS Glue see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
+
+**Step 4: Set up Security, Parameters**
+
+ Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions, .  A cloudformation template is provided to do that for you.  Download and examine the Dependency Stack cloudformation template.  Read the comments to embedded in the template and pay particular attention to how you are able to automatically build AWS GLUE databases and tables with code.   
 
   a)  Navigate to [CloudFormation service](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.   Download and launch the following cloudformation template to build the resources.   Note: You do not need to change any of the pre-set parameters.
 
@@ -29,32 +153,23 @@ First you need to prepare the environment to hold and process the sample data.  
 
   Note: for more background on the purpose of this infrastructure, refer to the [MLOps dependency stack](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/DependencyStack.md).
 
-  b) Once the cloudformation script completes successfully, navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see two new databases.  Select the 'sample_database' and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above. These Glue structures were created automatically by the Cloudformation template that you just executed.  Examine the cloudformation script to see how that was done.  (Note: For more information on AWS Glue see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
+ 
 
-**Step 3: Prepare Raw Meter Data for Processing** 
+**Step 5: Prepare Raw Meter Data for Processing** 
 
-Often raw meter data must be must be cleaned and validated before it can be used for forecasting.   An easy way to do that is by using Athena, Amazon's serverless query engine.   
+Often raw meter data must be must be cleaned and validated before it can be used for forecasting.   An easy way to do that is by using Athena once again.  We will create an improved version of the raw data file and log it as a table in our Glue database.    Our query will perform two transformations:  add a neighborhood block id and adjust the dates for weather forecast simulation (since this is relatively old data we want to bring it forward several years to within the supported range of Amazon's weather index).
 
-  a) Before you use Athena for the first time, you will need to create a folder in S3 to store query results.  Go to the S3 console.  Select your workshop bucket and create a subfolder for holding query results.   Remember the name.  You will need it for the next step.
-
-  b) Navigate to the Athena console.  At the top of the Athena screen you should see a dialog box that says:  "Before you run your first query, you need to set up a query result location in Amazon S3".  
-
-  ![Athena console - setting up a location for query results](https://github.com/rgleave/proj2/blob/master/workshop-athena-query-screen.png)
-
-  Click the "Edit Settings" button on the dialog box.   On the "Manage Settings" screen with appears next, click the "Browse S3" button.  Find the new folder you created in Step 3a and choose it.   
-
-  ![Manage Athena settings](https://github.com/rgleave/proj2/blob/master/workshop-manage-settings-bucket.png)
-
-  Finally, press the "Save" button to finish this setup.
-
-  c) Return to the Athena console.  Open the query window (you may need to select the "Editor" tab).  Make sure you have selected 'sample_database' from Database dropdown (left side of screen).  Notice that you can expand each of the exist tables on the left to see the table structures.
   
-  d) Copy the SQL statement below and run it in the Athena query window.  This statement creates a new copy of the raw meter data in a new Glue table which is structured better for weather forecasting and also for joining with other data for visualization.  
+  a) Return to the Athena console.  Open the query window (you may need to select the "Editor" tab to find it).  Make sure you have selected 'sample_database' from Database dropdown (left side of screen).  Notice that you can expand each of the exist tables on the left to see the table structures.
+  
+  b) Copy the SQL statement below and run it in the Athena query window.  This statement creates a new copy of the raw meter data in a new Glue table which is structured better for weather forecasting and also for joining with other data for visualization.  
+
+  NOTE: remember to replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
 
 ```
 create table london_meter_table 
     WITH (
-          external_location = 's3://energy-forecasts/workshop-data/london-meter-data')
+          external_location = 's3://[YOUR-BUCKET-HERE]/workshop-data/london-meter-data')
 as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "item_id", energy_sum as "target_value", date_add('year', 6, DATE(day)) as "timestamp" FROM "AwsDataCatalog"."sample_database"."raw_meter_table";
 
 ```
@@ -67,6 +182,7 @@ as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "ite
 **Recap:  What we Learned in this Module**
 
 - How to automatically generate Glue databases and tables using Cloudformation.
+- How to set up Athena
 - How to use Athena to generate a refined data set from raw data and simultaneously register that as a new Glue table.
 
 You are now ready to move on to the next module of this workshop.
