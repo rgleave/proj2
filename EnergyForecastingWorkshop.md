@@ -44,7 +44,7 @@ create database samples_db;
 
 ```
 
-  b) This query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
+  b) This query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
 
 ```
 CREATE EXTERNAL TABLE samples_db.raw_meter_table (
@@ -65,7 +65,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://energy-workshop/workshop-data/synthetic-meter-master-data/'
+  's3://[YOUR-BUCKET-NAME]/workshop-data/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
@@ -76,7 +76,7 @@ TBLPROPERTIES (
 
 ```
 
-  c) This query applies a schema to the **synthetic-grid-master-data** file which was uploaded in step 1c, then also stores it as a table named **grid_master_table** in the samples database.   NOTE: remember to replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
+  c) This query applies a schema to the **synthetic-grid-master-data** file which was uploaded in step 1c, then also stores it as a table named **grid_master_table** in the samples database.   NOTE: remember to replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
 
 ```
 CREATE EXTERNAL TABLE samples_db.grid_master_table (
@@ -100,7 +100,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://energy-workshop/workshop-data/synthetic-meter-master-data/'
+  's3://[YOUR-BUCKET-NAME]workshop-data/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
@@ -111,7 +111,7 @@ TBLPROPERTIES (
 
 ```
 
-  c) This query applies a schema to the **synthetic-meter-master-data** which was uploaded in step 1c, then also stores it as a table named **meter_master_table** in the samples database.  NOTE: remember to replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
+  c) This query applies a schema to the **synthetic-meter-master-data** which was uploaded in step 1c, then also stores it as a table named **meter_master_table** in the samples database.  NOTE: remember to replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
 
 
 ```
@@ -125,7 +125,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://energy-workshop/workshop-data/synthetic-meter-master-data/'
+  's3://[YOUR-BUCKET-NAME]/workshop-data/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
