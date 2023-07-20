@@ -21,7 +21,7 @@ First you need to prepare the environment to hold and process the sample data.  
 
   Athena is Amazon's serverless query engine, which allows you to read and transform raw data files using standard SQL commands.   We will use Athena to perform several different data functions during the workshop.   But first, before you use Athena for the first time, you will need to you will take some steps to configure it: 
 
-  a) Create a folder in S3 to store query results.  Go to the S3 console.  Select your workshop bucket and create a subfolder for holding query results.   Remember the name.  You will need it for the next step.
+  a) Create a folder to store query results.  Go to the S3 console.  Select your workshop bucket and create a subfolder.   Remember the name you chose.  You will need it for the next step.
 
   b) Navigate to the Athena console.  At the top of the Athena screen you may see a dialog box that says:  "Before you run your first query, you need to set up a query result location in Amazon S3".  If so, click the "Edit Settings" button on the dialog box.  (NOTE: if you do not see the dialog box, select the "Settings" tab)
 
@@ -35,19 +35,19 @@ First you need to prepare the environment to hold and process the sample data.  
 
 **Step 3: Establishing Glue Datbases and Tables**
 
-  Before you can interact with raw text data, you must apply a structure (schema) over the data set to help Athena perform queries.  That process is called cataloging and consists of creating databases and tables.  There are several ways to create databases and catalogs.  We will use Athena to do so. Navigate to the Athena console, select the Editor tab, and run the following queries:
+  Before you can interact with raw text data, you must apply a structure (schema) over the data set to allow Athena to execute structured queries.  This process is called cataloging and generates databases and tables in the AWS Glue Catalog.  There are several ways to create databases and tables, however in this workshop we will use Athena to do so.  Navigate to the Athena console, select the Editor tab, and run the following queries:
 
   a) This query creates a database to catalog our sample data.
 
 ```
-create database sample_database;
+create database samples_db;
 
 ```
 
   b) This query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
 
 ```
-CREATE EXTERNAL TABLE sample_database.raw_meter_table (
+CREATE EXTERNAL TABLE samples_db.raw_meter_table (
   lclid string, 
   day string,
   energy_median float,
@@ -65,7 +65,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://[YOUR-BUCKET-HERE]/workshop-data/synthetic-meter-master-data/'
+  's3://energy-workshop/workshop-data/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
@@ -79,7 +79,7 @@ TBLPROPERTIES (
   c) This query applies a schema to the **synthetic-grid-master-data** file which was uploaded in step 1c, then also stores it as a table named **grid_master_table** in the samples database.   NOTE: remember to replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
 
 ```
-CREATE EXTERNAL TABLE sample_database.grid_master_table (
+CREATE EXTERNAL TABLE samples_db.grid_master_table (
   block_id string, 
   servicetransformerid string,
   distributiontransformerid string,
@@ -100,7 +100,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://[YOUR-BUCKET-HERE]/workshop-data/synthetic-meter-master-data/'
+  's3://energy-workshop/workshop-data/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
@@ -111,12 +111,11 @@ TBLPROPERTIES (
 
 ```
 
-
   c) This query applies a schema to the **synthetic-meter-master-data** which was uploaded in step 1c, then also stores it as a table named **meter_master_table** in the samples database.  NOTE: remember to replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
 
 
 ```
-CREATE EXTERNAL TABLE sample_database.meter_master_table (
+CREATE EXTERNAL TABLE samples_db.meter_master_table (
   meter_id string, 
   meter_type string)
 ROW FORMAT DELIMITED 
@@ -126,7 +125,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://[YOUR-BUCKET-HERE]/workshop-data/synthetic-meter-master-data/'
+  's3://energy-workshop/workshop-data/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
