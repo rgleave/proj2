@@ -35,7 +35,7 @@ First you need to prepare the environment to hold and process the sample data.  
 
 **Step 3: Establishing Glue Datbases and Tables**
 
-  Before you can interact with raw text data, you must apply a structure (schema) over the data set to allow Athena to execute structured queries.  This process is called cataloging and generates databases and tables in the AWS Glue Catalog.  There are several ways to create databases and tables, however in this workshop we will use Athena to do so.  Navigate to the Athena console, select the Editor tab, and run the following queries:
+  Before you can interact with raw text data, you must apply a structure (schema) over the data set to allow Athena to execute structured queries.  This process is called cataloging and generates databases and tables in the AWS Glue Catalog.  There are several ways to create databases and tables, however in this workshop we will use Athena to do so.  Navigate to the Athena console, and select the Editor tab.  Select  and run the following queries:
 
   a) This query creates a database to catalog our sample data.
 
@@ -43,6 +43,7 @@ First you need to prepare the environment to hold and process the sample data.  
 create database samples_db;
 
 ```
+  Once the query completes successfully, look at the **Data Pane** on the left side of the screen.  You will see **Database** window. Select **samples_db** from the dropdown.
 
   b) This query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
 
@@ -136,7 +137,7 @@ TBLPROPERTIES (
 
 ```
   
-  Now let's check to see the results of our work.  Navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see two new databases.  Select the 'sample_database' and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above. These Glue structures were created automatically by the Cloudformation template that you just executed.  Examine the cloudformation script to see how that was done.  (Note: For more information on AWS Glue see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
+  Now let's check to see the results of our work.  Navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see two new databases.  Select the 'sample_database' and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above (Note: you may have to refresh your screen). These Glue structures were created automatically by the queries that you just executed.  (For more information on AWS Glue see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
 
 **Step 4: Set up Security, Parameters**
 
