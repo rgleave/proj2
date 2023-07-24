@@ -157,14 +157,17 @@ TBLPROPERTIES (
 
   ![Launch Cloudformation Stack](https://github.com/rgleave/proj2/blob/master/dependency-stack.png)
   
-  c) For the stack name, enter a name (e.g.'dependency-stack').  Pay particular attention to the schemas definitions.  We will refer to them again in a future step.
+  c) For the stack name, enter any name (e.g.'dependency-stack').  
+  
+  d) Enter the name of the S3 bucket you created at the beginning of this workshop.
+
+  e) Click through the default values of the remaining screens until you can submit the cloudformation stack build.
 
 **Step 5: Prepare Raw Meter Data for Processing** 
 
-Often raw meter data must be must be cleaned and validated before it can be used for forecasting.   An easy way to do that is by using Athena.  We will create an improved version of the raw data file and register it as a table in our Glue database.    The query to do this will perform two transformations:  add a neighborhood block id and adjust the dates for weather forecast simulation (Note: since this is relatively old data we want to bring it forward several years to within the supported range of Amazon's weather index).
-
+Often raw meter data must be must be cleaned and validated before it can be used for forecasting.   An easy way to do that is by using Athena.  We will create an improved version of the raw data file and register it as a table in our Glue database.    This query will perform two data transformations:  add a neighborhood 'block_id', then adjust the dates for weather forecast simulation (Note: since this is relatively old data we want to bring it forward several years to within the supported date range of Amazon's weather index).
   
-  a) Return to the Athena console.  Open the query window (you may need to select the "Editor" tab to find it).  Make sure you have selected **sample_database** from Database dropdown again.  Notice that you can expand each of the existing tables on the left to see the table structures of each table.
+  a) Return to the Athena console.  Open the query window (you may need to select the "Editor" tab to find it).  Make sure you have selected **sample_database** from Database dropdown again.  Notice that you can now expand each of the existing tables on the left Data panel in order to see the table structures of each table.
   
   b) Copy the SQL statement below and run it in the Athena query window.  This statement creates a new Glue table containing a copy of the raw meter data which is structured to support weather forecasting and joining with other data for visualization.  
 
