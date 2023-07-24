@@ -168,7 +168,7 @@ Often raw meter data must be must be cleaned and validated before it can be used
 create table enhanced_raw_meter_table 
     WITH (
           external_location = 's3://[YOUR-BUCKET-HERE]/london-meter-data')
-as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "item_id", energy_sum as "target_value", date_add('year', 6, DATE(day)) as "timestamp" FROM "AwsDataCatalog"."sample_database"."raw_meter_table";
+as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "item_id", energy_sum as "target_value", date_add('year', 6, DATE(day)) as "timestamp" FROM "AwsDataCatalog"."sample_db"."raw_meter_table";
 
 ```
 
