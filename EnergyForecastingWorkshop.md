@@ -43,7 +43,7 @@ First you need to prepare the environment to hold and process the sample data.  
 create database samples_db;
 
 ```
-  Once the query completes successfully, look at the **Data Pane** on the left side of the screen.  You will see **Database** window. Select **samples_db** from the dropdown.
+  Once the query completes successfully, look at the **Data Pane** on the left side of the screen.  You will see a **Database** window. Select **samples_db** from the dropdown list of databases.
 
   b) This query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
 
@@ -141,7 +141,7 @@ TBLPROPERTIES (
 
 **Step 4: Set up Security, Parameters**
 
- Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions, .  A cloudformation template is provided to do that for you.  Download and examine the Dependency Stack cloudformation template.  Read the comments to embedded in the template and pay particular attention to how you are able to automatically build AWS GLUE databases and tables with code.   
+ Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions, .  A cloudformation template is provided to do that for you.  Download and examine the Dependency Stack cloudformation template.   
 
   a)  Navigate to [CloudFormation service](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.   Download and launch the following cloudformation template to build the resources.   Note: You do not need to change any of the pre-set parameters.
 
@@ -155,7 +155,7 @@ TBLPROPERTIES (
 
 **Step 5: Prepare Raw Meter Data for Processing** 
 
-Often raw meter data must be must be cleaned and validated before it can be used for forecasting.   An easy way to do that is by using Athena once again.  We will create an improved version of the raw data file and log it as a table in our Glue database.    Our query will perform two transformations:  add a neighborhood block id and adjust the dates for weather forecast simulation (since this is relatively old data we want to bring it forward several years to within the supported range of Amazon's weather index).
+Often raw meter data must be must be cleaned and validated before it can be used for forecasting.   An easy way to do that is by using Athena.  We will create an improved version of the raw data file and register it as a table in our Glue database.    The query to do this will perform two transformations:  add a neighborhood block id and adjust the dates for weather forecast simulation (Note: since this is relatively old data we want to bring it forward several years to within the supported range of Amazon's weather index).
 
   
   a) Return to the Athena console.  Open the query window (you may need to select the "Editor" tab to find it).  Make sure you have selected 'sample_database' from Database dropdown (left side of screen).  Notice that you can expand each of the exist tables on the left to see the table structures.
