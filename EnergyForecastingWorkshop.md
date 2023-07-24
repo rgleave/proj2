@@ -66,7 +66,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://[YOUR-BUCKET-NAME]/synthetic-meter-master-data/'
+  's3://[YOUR-BUCKET-NAME]/workshop-data/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
@@ -101,7 +101,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://[YOUR-BUCKET-NAME]/synthetic-meter-master-data/'
+  's3://[YOUR-BUCKET-NAME]/workshop-data/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
@@ -126,7 +126,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://[YOUR-BUCKET-NAME]/synthetic-meter-master-data/'
+  's3://[YOUR-BUCKET-NAME]/workshop-data/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
@@ -167,7 +167,7 @@ Often raw meter data must be must be cleaned and validated before it can be used
 ```
 create table enhanced_raw_meter_table 
     WITH (
-          external_location = 's3://[YOUR-BUCKET-HERE]/london-meter-data')
+          external_location = 's3://[YOUR-BUCKET-HERE]/workshop-data/london-meter-data')
 as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "item_id", energy_sum as "target_value", date_add('year', 6, DATE(day)) as "timestamp" FROM "AwsDataCatalog"."samples_db"."raw_meter_table";
 
 ```
