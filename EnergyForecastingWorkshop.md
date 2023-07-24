@@ -56,7 +56,7 @@ CREATE EXTERNAL TABLE samples_db.raw_meter_table (
   energy_count bigint,
   energy_std float,
   energy_sum float,
-  energy_min float,
+  energy_min float
   )
 ROW FORMAT DELIMITED 
   FIELDS TERMINATED BY ',' 
@@ -65,7 +65,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://[YOUR-BUCKET-NAME]/workshop-data/synthetic-meter-master-data/'
+  's3://[YOUR-BUCKET-NAME]/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
@@ -100,7 +100,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://[YOUR-BUCKET-NAME]workshop-data/synthetic-meter-master-data/'
+  's3://[YOUR-BUCKET-NAME]/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
@@ -125,7 +125,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://[YOUR-BUCKET-NAME]/workshop-data/synthetic-meter-master-data/'
+  's3://[YOUR-BUCKET-NAME]/synthetic-meter-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
