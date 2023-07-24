@@ -139,19 +139,25 @@ TBLPROPERTIES (
   
   Now let's check to see the results of our work.  Navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see two new databases.  Select the 'sample_database' and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above (Note: you may have to refresh your screen). These Glue structures were created automatically by the queries that you just executed.  (For more information on AWS Glue see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
 
-**Step 4: Set up Security, Parameters**
+**Step 4: Set up Security and Configurations (parameters)**
 
- Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions, .  A cloudformation template is provided to do that for you.  Download and examine the Dependency Stack cloudformation template.   
+ Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions.  A cloudformation template is provided to do that for you.  Download and examine the Dependency Stack cloudformation template.   
 
-  a)  Navigate to [CloudFormation service](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.   Download and launch the following cloudformation template to build the resources.   Note: You do not need to change any of the pre-set parameters.
+  a) Download and launch the following cloudformation template to build the resources.   Note: You do not need to change any of the pre-set parameters.
 
   ```
   https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/workshop-dependency-stack.yaml
   ```
 
+  b) Navigate to [CloudFormation console](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.   Select "Create Stack, with new resources (Standard)".  For the template source, choose 'Upload a template file'.   Select the template you just downloaded. 
+
   Note: for more background on the purpose of this infrastructure, refer to the [MLOps dependency stack](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/DependencyStack.md).
 
- 
+  Review the default Cloudformation parameters provided by the Cloudformation template.  
+
+  ![Launch Cloudformation Stack](https://github.com/rgleave/proj2/blob/master/dependency-stack.png)
+  
+  c) For the stack name, enter a name (e.g.'dependency-stack').  Pay particular attention to the schemas definitions.  We will refer to them again in a future step.
 
 **Step 5: Prepare Raw Meter Data for Processing** 
 
