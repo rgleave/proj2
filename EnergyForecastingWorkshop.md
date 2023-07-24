@@ -160,7 +160,7 @@ Often raw meter data must be must be cleaned and validated before it can be used
   
   a) Return to the Athena console.  Open the query window (you may need to select the "Editor" tab to find it).  Make sure you have selected **sample_database** from Database dropdown again.  Notice that you can expand each of the existing tables on the left to see the table structures of each table.
   
-  b) Copy the SQL statement below and run it in the Athena query window.  This statement creates a new Glue table containing a copy of the raw meter data, structured to support weather forecasting and joining with other data for visualization.  
+  b) Copy the SQL statement below and run it in the Athena query window.  This statement creates a new Glue table containing a copy of the raw meter data which is structured to support weather forecasting and joining with other data for visualization.  
 
   NOTE: remember to replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
 
