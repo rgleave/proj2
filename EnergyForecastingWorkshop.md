@@ -158,16 +158,16 @@ TBLPROPERTIES (
 Often raw meter data must be must be cleaned and validated before it can be used for forecasting.   An easy way to do that is by using Athena.  We will create an improved version of the raw data file and register it as a table in our Glue database.    The query to do this will perform two transformations:  add a neighborhood block id and adjust the dates for weather forecast simulation (Note: since this is relatively old data we want to bring it forward several years to within the supported range of Amazon's weather index).
 
   
-  a) Return to the Athena console.  Open the query window (you may need to select the "Editor" tab to find it).  Make sure you have selected 'sample_database' from Database dropdown (left side of screen).  Notice that you can expand each of the exist tables on the left to see the table structures.
+  a) Return to the Athena console.  Open the query window (you may need to select the "Editor" tab to find it).  Make sure you have selected **sample_database** from Database dropdown again.  Notice that you can expand each of the existing tables on the left to see the table structures of each table.
   
-  b) Copy the SQL statement below and run it in the Athena query window.  This statement creates a new copy of the raw meter data in a new Glue table which is structured better for weather forecasting and also for joining with other data for visualization.  
+  b) Copy the SQL statement below and run it in the Athena query window.  This statement creates a new Glue table containing a copy of the raw meter data, structured to support weather forecasting and joining with other data for visualization.  
 
   NOTE: remember to replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
 
 ```
-create table london_meter_table 
+create table enhanced_raw_meter_table 
     WITH (
-          external_location = 's3://[YOUR-BUCKET-HERE]/workshop-data/london-meter-data')
+          external_location = 's3://[YOUR-BUCKET-HERE]/london-meter-data')
 as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "item_id", energy_sum as "target_value", date_add('year', 6, DATE(day)) as "timestamp" FROM "AwsDataCatalog"."sample_database"."raw_meter_table";
 
 ```
