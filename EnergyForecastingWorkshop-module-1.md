@@ -139,9 +139,9 @@ TBLPROPERTIES (
   
   Now let's check to see the results of our work.  Navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see two new databases.  Select the 'sample_database' and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above (Note: you may have to refresh your screen). These Glue structures were created automatically by the queries that you just executed.  (For more information on AWS Glue see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
 
-**Step 4: Set up Security and Configurations (parameters)**
+**Step 4: Set up Security and Forecasting Functions **
 
- Even though this is a fully-serverless solution, you will need to establish some basic infrastructure and permissions.  A cloudformation template is provided to do that for you.  Download and examine the Dependency Stack cloudformation template.   
+ Even though this is a low-code, serverless solution you will need to establish some basic infrastructure like permissions (IAM Roles) and reusable forecasting functions (Lambda).  A cloudformation template is provided to do that for you.  Download and examine the Dependency Stack cloudformation template below.   
 
   a) Download and launch the following cloudformation template to build the resources.   Note: You do not need to change any of the pre-set parameters.
 
@@ -149,9 +149,9 @@ TBLPROPERTIES (
   https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/workshop-dependency-stack.yaml
   ```
 
-  b) Navigate to [CloudFormation console](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.   Select "Create Stack, with new resources (Standard)".  For the template source, choose 'Upload a template file'.   Select the template you just downloaded. 
+  b) To launch the template, first navigate to [CloudFormation console](https://us-west-2.console.aws.amazon.com/cloudformation) and select your desired deployment region.   Next, select "Create Stack, with new resources (Standard)".  For the template source, choose 'Upload a template file'.   Select the template (yaml file) that you just downloaded. 
 
-  Note: for more background on the purpose of this infrastructure, refer to the [MLOps dependency stack](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/DependencyStack.md).
+  Note: for more infomation about the purpose of this infrastructure, refer to the [MLOps dependency stack](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/DependencyStack.md).
 
   Review the default Cloudformation parameters provided by the Cloudformation template.  
 
@@ -162,6 +162,11 @@ TBLPROPERTIES (
   d) Enter the name of the S3 bucket you created at the beginning of this workshop.
 
   e) Click through the default values of the remaining screens until you can submit the cloudformation stack build.
+
+  Once the cloudformation stack build finishes, search for the Lambda service at the top of the console page.   On the Lambda console you should see several Lambda helper functions which were created by Cloudformation.  
+
+  ![Lambda helper functions](https://github.com/rgleave/proj2/blob/master/workshop-lambda-helper-functions.png)
+
 
 **Step 5: Prepare Raw Meter Data for Processing** 
 
@@ -190,7 +195,7 @@ as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "ite
 
 - How to set up Athena
 - How to automatically generate Glue databases and tables using Athena.
-- How to launch a Cloudformation stack build.
-- How to use Athena to generate a refined data set from raw data and simultaneously register that as a new Glue table.
+- How to build infrastructure (IAM roles and Lamda Functions) using Cloud Formation.
+- How to use Athena to generate a refined data set from raw data, then register it as a new Glue table.
 
 You are now ready to move on to the next module of this workshop.
