@@ -23,7 +23,7 @@ First you need to prepare the environment to hold and process the sample data.  
 
   a) Create a folder to store query results.  Go to the S3 console.  Select your workshop bucket and create a subfolder.   Remember the name you chose.  You will need it for the next step.
 
-  b) Navigate to the Athena console.  At the top of the Athena screen you may see a dialog box that says:  "Before you run your first query, you need to set up a query result location in Amazon S3".  If so, click the "Edit Settings" button on the dialog box.  (NOTE: if you do not see the dialog box, select the "Settings" tab)
+  b) Navigate to the Athena console.  At the top of the Athena screen you may see a dialog box that says:  "Before you run your first query, you need to set up a query result location in Amazon S3".  If so, click the "Edit Settings" button on the dialog box.  (NOTE: if you do not see the dialog box, simply select the "Settings" tab)
 
   ![Athena console - setting up a location for query results](https://github.com/rgleave/proj2/blob/master/workshop-athena-query-screen.png)
   
@@ -37,7 +37,7 @@ First you need to prepare the environment to hold and process the sample data.  
 
   Before you can interact with raw text data, you must apply a structure (schema) over the data set to allow Athena to execute structured queries.  This process is called cataloging and generates databases and tables in the AWS Glue Catalog.  There are several ways to create databases and tables, however in this workshop we will use Athena to do so.  Navigate to the Athena console, and select the Editor tab.  Select  and run the following queries:
 
-  a) This query creates a database to catalog our sample data.
+  a) The first query creates a database to serve as a catalog to hold our sample data tables.
 
 ```
 create database samples_db;
@@ -45,7 +45,7 @@ create database samples_db;
 ```
   Once the query completes successfully, look at the **Data Pane** on the left side of the screen.  You will see a **Database** window. Select **samples_db** from the dropdown list of databases.
 
-  b) This query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
+  b) The second query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
 
 ```
 CREATE EXTERNAL TABLE samples_db.raw_meter_table (
@@ -66,7 +66,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://[YOUR-BUCKET-NAME]/workshop-data/synthetic-meter-master-data/'
+  's3://[YOUR-BUCKET-NAME]/workshop-data/raw-meter-daily/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
@@ -77,7 +77,9 @@ TBLPROPERTIES (
 
 ```
 
-  c) This query applies a schema to the **synthetic-grid-master-data** file which was uploaded in step 1c, then also stores it as a table named **grid_master_table** in the samples database.   NOTE: remember to replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
+  Once the query completes you can examine the contents of the table by finding the new table listed on the left side of the screen, then pressing the menu button (3 dots).   Select the **Preview Table** option to see a small sample of the data.   This tables contains the raw meter data which was collected from London households during the research study mentioned previously.
+
+  c) The third query applies a schema to the **synthetic-grid-master-data** file which was uploaded in step 1c, then also stores it as a table named **grid_master_table** in the samples database.   NOTE: remember to replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
 
 ```
 CREATE EXTERNAL TABLE samples_db.grid_master_table (
@@ -101,7 +103,7 @@ STORED AS INPUTFORMAT
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://[YOUR-BUCKET-NAME]/workshop-data/synthetic-meter-master-data/'
+  's3://[YOUR-BUCKET-NAME]/workshop-data/synthetic-grid-master-data/'
 TBLPROPERTIES (
   'classification'='csv', 
   'columnsOrdered'='true', 
@@ -112,7 +114,10 @@ TBLPROPERTIES (
 
 ```
 
-  c) This query applies a schema to the **synthetic-meter-master-data** which was uploaded in step 1c, then also stores it as a table named **meter_master_table** in the samples database.  NOTE: remember to replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
+  After running the query, preview the contents of this table as well.   This is synthetic metadata, designed to simulate information which might relate to elements of an electric grid.   It is included purely to simulate what live grid data might look like.
+
+
+  c) The final query applies a schema to the **synthetic-meter-master-data** which was uploaded in step 1c, then also stores it as a table named **meter_master_table** in the samples database.  NOTE: remember to replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
 
 
 ```
