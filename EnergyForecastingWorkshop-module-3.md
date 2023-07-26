@@ -20,9 +20,12 @@
   - Click Start Execution on the secondary screen without changing anything.  Allow the state machine to run.   This may take several hours to finish.  This workflow will 
 
 3. When the last step of the forecasting pipeline is complete, your forecast data will be deposited in the folder you created for step 6 above.
-     
 
-## Conclusion
-The steps above help you understand how produce a forecast on a sample dataset.  Please use overrides as a way to learn how to adapt data to your bespoke schema and use case.  If you have any questions, please reach out to your AWS Solutions Architect or account team.
+  **Recap:  What we Learned in this Module**
 
+- The purpose of each branch of the Forecasting Pipeline.
+- How to run branches of the Forecasting Pipeline separately and individually.
+- How to run the full Forecasting Pipeline as a single step.
+- How to validate results.
 
+You are now ready to move on to the next module of this workshop.

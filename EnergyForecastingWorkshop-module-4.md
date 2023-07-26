@@ -14,3 +14,21 @@ as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "ite
 
 b) Next, execute the following Athena SQL statement to generate a fully-attributed Forecast table by joining the forecast data with grid and meter metadata tables.
 
+
+
+
+
+
+
+
+
+  **Recap:  What we Learned in this Module**
+
+- How to ...
+- How to ...
+- How to ...
+- How to ...
+- How to ...
+- How to ...
+
+You have now completed all modules of this workshop.
