@@ -179,20 +179,20 @@ Often raw meter data must be must be cleaned and validated before it can be used
   
   a) Return to the Athena console.  Open the query window (you may need to select the "Editor" tab to find it).  Make sure you have selected **sample_database** from Database dropdown again.  Notice that you can now expand each of the existing tables on the left Data panel in order to see the table structures of each table.
   
-  b) Copy the SQL statement below and run it in the Athena query window.  This statement creates a new Glue table containing a copy of the raw meter data which is structured to support weather forecasting and joining with other data for visualization.  
+  b) Copy the SQL statement below and run it in the Athena query window.  This query is different than the queries we ran previously. Those only created a new table over an existing dataset.   This query first creates a new table, but over an entirely new dataset -- an enhanced copy of the raw meter data, after adding structure to support weather forecasting and joining with other data for visualization.  Then the query creates a new table of the new data set.   Copy and run this query.
 
   NOTE: remember to replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
 
 ```
 create table enhanced_raw_meter_table 
     WITH (
-          external_location = 's3://[YOUR-BUCKET-HERE]/workshop-data/london-meter-data')
+          external_location = 's3://[YOUR-BUCKET-HERE]/workshop-data/enhanced-meter-data')
 as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "item_id", energy_sum as "target_value", date_add('year', 6, DATE(day)) as "timestamp" FROM "AwsDataCatalog"."samples_db"."raw_meter_table";
 
 ```
-  Copy and run the query.   Once the query has completed, navigate to the S3 console and note that a new sub-folder called 'london_meter_data' has been created within the 'workshop_data' folder.  Within that folder you will find a new data set.   Using the S3-Select operation (see instructions here) note the differences between this new data set and raw meter data that you uploaded in Step 1.   
+ Once the query has completed, navigate to the S3 console and notice that a new sub-folder called 'enhanced_meter_data' has been created within the 'workshop_data' folder, which contains a new data set.   Using the S3-Select operation (see instructions here) note the differences between this new data set and raw meter data that you uploaded in Step 1.   
 
-  Also navigate to the Glue console and verify that the query created a Glue table called **london_meter_table** which points to the modified raw data file in S3.
+  Also navigate to the Glue console and verify that the query created also created Glue table called **london_meter_table** which points to the modified raw data file in S3.
 
 
 **Recap:  What we Learned in this Module**
@@ -200,6 +200,6 @@ as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "ite
 - How to set up Athena
 - How to automatically generate Glue databases and tables using Athena.
 - How to build infrastructure (IAM roles and Lamda Functions) using Cloud Formation.
-- How to use Athena to generate a refined data set from raw data, then register it as a new Glue table.
+- How to use Athena to generate an enhanced data set from raw data, then register it as a new Glue table.
 
 You are now ready to move on to the next module of this workshop.
