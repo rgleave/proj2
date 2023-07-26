@@ -32,7 +32,7 @@ The first step in starting a new forecasting project is to create a folder to ho
 
 | Parameter | Recommended Value |
 |--|--|
-|Stack name|daily-forecast|
+|Stack name|[YOUR PROJECT FOLDER NAME]|
 |DatasetGroupFrequencyRTS|D|
 |DatasetGroupFrequencyTTS|D|
 |DatasetGroupName|daily-forecast|
