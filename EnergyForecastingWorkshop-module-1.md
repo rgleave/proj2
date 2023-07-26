@@ -43,9 +43,9 @@ First you need to prepare the environment to hold and process the sample data.  
 create database samples_db;
 
 ```
-  Once the query completes successfully, look at the **Data Pane** on the left side of the screen.  You will see a **Database** window. Select **samples_db** from the dropdown list of databases.
+  Copy the query (press the copy icon on the left side of the code window), then paste it in the query editor.  Press the orange **Run** button to execute the query. Once the query completes successfully, look at the **Data Pane** on the left side of the screen.  You will see a **Database** window. Select **samples_db** from the dropdown list of databases.
 
-  b) The second query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
+  b) The second query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket.  Copy and run the query.
 
 ```
 CREATE EXTERNAL TABLE samples_db.raw_meter_table (
@@ -117,7 +117,7 @@ TBLPROPERTIES (
   After running the query, preview the contents of this table as well.   This is synthetic metadata, designed to simulate information which might relate to elements of an electric grid.   It is included purely to simulate what live grid data might look like.
 
 
-  c) The final query applies a schema to the **synthetic-meter-master-data** which was uploaded in step 1c, then also stores it as a table named **meter_master_table** in the samples database.  NOTE: remember to replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
+  c) The final query applies a schema to the **synthetic-meter-master-data** which was uploaded in step 1c, then also stores it as a table named **meter_master_table** in the samples database.  NOTE: remember to replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket.  Copy and run the query.
 
 
 ```
@@ -190,8 +190,7 @@ create table enhanced_raw_meter_table
 as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "item_id", energy_sum as "target_value", date_add('year', 6, DATE(day)) as "timestamp" FROM "AwsDataCatalog"."samples_db"."raw_meter_table";
 
 ```
-
-  Once the query has completed, navigate to the S3 console and note that a new sub-folder called 'london_meter_data' has been created within the 'workshop_data' folder.  Within that folder you will find a new data set.   Using the S3-Select operation (see instructions here) note the differences between this new data set and raw meter data that you uploaded in Step 1.   
+  Copy and run the query.   Once the query has completed, navigate to the S3 console and note that a new sub-folder called 'london_meter_data' has been created within the 'workshop_data' folder.  Within that folder you will find a new data set.   Using the S3-Select operation (see instructions here) note the differences between this new data set and raw meter data that you uploaded in Step 1.   
 
   Also navigate to the Glue console and verify that the query created a Glue table called **london_meter_table** which points to the modified raw data file in S3.
 
