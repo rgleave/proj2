@@ -114,7 +114,7 @@ TBLPROPERTIES (
 
 ```
 
-  After running the query, preview the contents of this table as well.   This is synthetic metadata, designed to simulate information which might relate to elements of an electric grid.   It is included purely to simulate what live grid data might look like.
+  After running the query, refresh the list of tables on the left side of the screen and preview the contents of the table.   This is synthetic metadata, designed to simulate information which might relate to elements of an electric grid.   It is included purely to simulate what live grid data might look like.
 
 
   c) The final query applies a schema to the **synthetic-meter-master-data** which was uploaded in step 1c, then also stores it as a table named **meter_master_table** in the samples database.  NOTE: remember to replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket.  Copy and run the query.
@@ -142,7 +142,7 @@ TBLPROPERTIES (
 
 ```
   
-  Now let's check to see the results of our work.  Navigate to the Glue console and select the 'Database' option on the left navigation bar.  You should see two new databases.  Select the 'sample_database' and you should see 3 new tables pointing to the sample data files you uploaded in step 1c above (Note: you may have to refresh your screen). These Glue structures were created automatically by the queries that you just executed.  (For more information on AWS Glue see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
+  Now let's check to see the results of our work.  Navigate to the Glue console and select the 'Database' option on the left navigation bar.  Select the 'sample_database' and you should see that it contains 3 new tables pointing to the sample data files you uploaded in step 1c. (Note: you may have to refresh your screen). These Glue structures were created automatically by the queries that you just executed.  (For more information on AWS Glue see Getting started with the [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/start-data-catalog.html). )
 
 **Step 4: Set up Security and Forecasting Functions **
 
