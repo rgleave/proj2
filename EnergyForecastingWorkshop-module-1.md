@@ -202,4 +202,4 @@ as SELECT regexp_extract("$path", '[ \w-]+?(?=\.)') as "block_id", lclid as "ite
 - How to build infrastructure (IAM roles and Lamda Functions) using Cloud Formation.
 - How to use Athena to generate an enhanced data set from raw data, then register it as a new Glue table.
 
-You are now ready to move on to the next module of this workshop.
+You are now ready to move on to the [next module](https://github.com/rgleave/proj2/blob/master/EnergyForecastingWorkshop-module-2.md) of this workshop.
