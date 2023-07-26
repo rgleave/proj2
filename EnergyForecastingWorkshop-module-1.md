@@ -45,7 +45,7 @@ create database samples_db;
 ```
   Copy the query (press the copy icon on the left side of the code window), then paste it in the query editor.  Press the orange **Run** button to execute the query. Once the query completes successfully, look at the **Data Pane** on the left side of the screen.  You will see a **Database** window. Select **samples_db** from the dropdown list of databases.
 
-  b) The second query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket.  Copy and run the query.
+  b) The second query applies a schema to the **raw-meter-daily** file which was uploaded in step 1c, then stores it as a table in the samples database which was created in step 3a.  NOTE: you must replace {YOUR-BUCKET-NAME} with the name of your S3 workshop bucket.  Copy and run the query.
 
 ```
 CREATE EXTERNAL TABLE samples_db.raw_meter_table (
@@ -79,7 +79,7 @@ TBLPROPERTIES (
 
   Once the query completes you can examine the contents of the table by finding the new table listed on the left side of the screen, then pressing the menu button (3 dots).   Select the **Preview Table** option to see a small sample of the data.   This tables contains the raw meter data which was collected from London households during the research study mentioned previously.
 
-  c) The third query applies a schema to the **synthetic-grid-master-data** file which was uploaded in step 1c, then also stores it as a table named **grid_master_table** in the samples database.   NOTE: remember to replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket. 
+  c) The third query applies a schema to the **synthetic-grid-master-data** file which was uploaded in step 1c, then also stores it as a table named **grid_master_table** in the samples database.   NOTE: remember to replace {YOUR-BUCKET-NAME} with the name of your S3 workshop bucket. 
 
 ```
 CREATE EXTERNAL TABLE samples_db.grid_master_table (
@@ -117,7 +117,7 @@ TBLPROPERTIES (
   After running the query, refresh the list of tables on the left side of the screen and preview the contents of the table.   This is synthetic metadata, designed to simulate information which might relate to elements of an electric grid.   It is included purely to simulate what live grid data might look like.
 
 
-  c) The final query applies a schema to the **synthetic-meter-master-data** which was uploaded in step 1c, then also stores it as a table named **meter_master_table** in the samples database.  NOTE: remember to replace "[YOUR-BUCKET-NAME]" with the name of your S3 workshop bucket.  Copy and run the query.
+  c) The final query applies a schema to the **synthetic-meter-master-data** which was uploaded in step 1c, then also stores it as a table named **meter_master_table** in the samples database.  NOTE: remember to replace {YOUR-BUCKET-NAME} with the name of your S3 workshop bucket.  Copy and run the query.
 
 
 ```
@@ -181,7 +181,7 @@ Often raw meter data must be must be cleaned and validated before it can be used
   
   b) Copy the SQL statement below and run it in the Athena query window.  This query is different than the queries we ran previously. Those only created a new table over an existing dataset.   This query first creates a new table, but over an entirely new dataset -- an enhanced copy of the raw meter data, after adding structure to support weather forecasting and joining with other data for visualization.  Then the query creates a new table of the new data set.   Copy and run this query.
 
-  NOTE: remember to replace "[YOUR-BUCKET-HERE]" with the name of your S3 workshop bucket. 
+  NOTE: remember to replace {YOUR-BUCKET-NAME} with the name of your S3 workshop bucket. 
 
 ```
 create table enhanced_raw_meter_table 

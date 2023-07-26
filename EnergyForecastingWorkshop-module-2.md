@@ -1,16 +1,20 @@
 ﻿## MODULE TWO: BUILDING A FORECAST PIPELINE
 
-
-In the previous module, we created enhanced data sets from the actual raw meter data, in preparation for building forecasts.   In this module, we will create the pipeline infrastructure needed to load this data into Amazon forecast.   
+In the previous module, we created enhanced data sets from the actual raw meter data, in preparation for building forecasts.   In this module, we will create the pipeline infrastructure for loading and processing this data in Amazon forecast.   
 
 **Step 1: Setup a Forecasting Project**
 
 The first step in starting a new forecasting project is to create a folder to hold the input files which are loaded into Amazon Forecast as well as the forecast data that the service generates.
 
-  a) Go to the S3 console and select the bucket you created in Module One. 
-  b) Create a project folder (e.g. 'daily-forecast') to hold the tts, rts, and item files created by the Forecast service.  Remember the name of this project folder for the following steps.   
 
-**Step 2: Create Infrastructure for Forecasting**
+  a) Go to the S3 console and select the bucket you created in Module One. 
+  b) Create a project folder (e.g. 'daily-forecast') to hold the tts, rts, and item files needed by the Forecast service.  Remember the name of this project folder for the following steps.   
+
+**Step 2: Create Forecast Infrastructure**
+
+It is possible to configure and generate forecasts only by using the Amazon Forecast console, however most customers will seek to automate their forecast process using pipelines.   The first requirement to achieve automation is that all configuration values which a user would normally enter on a screen be saved in parameters.  We will use AWS Parameter store to hold configuration values.   The second requirement for automation is an orchestration service to perform eash step of the forecast process in the proper sequence.  We will build state machines in AWS Step Functions to handle task orchestration.   
+
+Building these pipeline components can be time consuming if done by hand.  We will use Cloudformation to automate our pipeline build.  Perform the following steps:
 
   a) Download the following cloudformation template to build the resources.
 
@@ -22,17 +26,16 @@ The first step in starting a new forecasting project is to create a folder to ho
   
   c) Review the default Cloudformation parameters provided by the Cloudformation template.  Each parameter controls some aspect of the Amazon Forecasting engine. Pay particular attention to the schemas definitions.  We will refer to them again in a future step.   
   
-  When you are ready, launch the template.   
-  
-  Important Notes: 
+  Most of the parameter values can be left as defaulted, however: 
   - for the stack name, use the same name that you chose for the folder in Step 1 of this module. 
   - for the <b>S3Bucket</b> parameter, enter the name of the bucket you created in Step 1 of Module One. 
   - for the Dataset Group name, also enter the name of the folder you created in Step 1 of this module. 
-  - it should take about 5 minutes to create the forecasting pipeline and other necessary resources.
+ 
+  When you are ready, launch the template.   It should take about 5 minutes to create the forecasting pipeline and other necessary resources.
 
 | Parameter | Recommended Value |
 |--|--|
-|Stack name|[YOUR PROJECT FOLDER NAME]|
+|Stack name|{YOUR PROJECT FOLDER NAME}|
 |DatasetGroupFrequencyRTS|D|
 |DatasetGroupFrequencyTTS|D|
 |DatasetGroupName|daily-forecast|
@@ -45,8 +48,8 @@ The first step in starting a new forecasting project is to create a folder to ho
 |PredictorForecastHorizon | 14|
 |PredictorForecastOptimizationMetric| AverageWeightedQuantileLoss|
 |PredictorForecastTypes | ["0.50", "0.60", "0.70", "0.80", "0.90"]|
-|S3Bucket | {your bucket} (same as Dependency stack) |
-|SNSEndpoint | {your email} |
+|S3Bucket | {YOUR BUCKET NAME} (from Module One) |
+|SNSEndpoint | {YOUR EMAIL ADDRESS} |
 |TimestampFormatRTS |yyyy-MM-dd|
 |TimestampFormatTTS |yyyy-MM-dd|
 
