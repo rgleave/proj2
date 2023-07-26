@@ -28,4 +28,4 @@
 - How to run the full Forecasting Pipeline as a single step.
 - How to validate results.
 
-You are now ready to move on to the next module of this workshop.
+You are now ready to move on to the [next module](https://github.com/rgleave/proj2/blob/master/EnergyForecastingWorkshop-module-4.md) of this workshop.

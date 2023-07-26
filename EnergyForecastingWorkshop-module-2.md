@@ -7,8 +7,9 @@ In the previous module, we created enhanced data sets from the actual raw meter 
 The first step in starting a new forecasting project is to create a folder to hold the input files which are loaded into Amazon Forecast as well as the forecast data that the service generates.
 
 
-  a) Go to the S3 console and select the bucket you created in Module One. 
-  b) Create a project folder (e.g. 'daily-forecast') to hold the tts, rts, and item files needed by the Forecast service.  Remember the name of this project folder for the following steps.   
+a) Go to the S3 console and select the bucket you created in Module One. 
+
+b) Create a project folder (e.g. 'daily-forecast') to hold the tts, rts, and item files needed by the Forecast service.  Remember the name of this project folder for the following steps.   
 
 **Step 2: Create Forecast Infrastructure**
 
@@ -218,4 +219,4 @@ c) Repeat the steps you followed above to shape an item file for the Forecast se
 - How to register those shaping queries into the automated pipeline.
 - How to alter and save run-time parameters for the forecasting pipeline.
 
-You are now ready to move on to the next module of this workshop.
+You are now ready to move on to the [next module](https://github.com/rgleave/proj2/blob/master/EnergyForecastingWorkshop-module-3.md) of this workshop.
