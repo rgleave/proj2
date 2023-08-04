@@ -20,21 +20,21 @@ This example illustrates how to forecast retail product demand using Amazon Fore
 4. Click Next to continue.
 5. At stack creation, "[Step 2: Specify stack details](../images/create-dependency-stack-2.jpg)" complete page details as follows:
 	
-	 - [ ] Stack name should be forecast-mlops-dependency
+	 - [ ] Stack name should be forecast-dependency-stack
 	 - [ ] If you already have a S3 bucket for this purpose, choose "true" for ExistingS3Bucket.  If you need a new bucket, select false (default).
 	 - [ ] Provide a valid and unique S3 bucket name.  To ensure a globally unique S3 bucket name, some customers append a portion of their AWS account number or random alpha numeric digits.
 	 - [ ] Click the next button to continue.
-6. At stack creation, "Step 3: Configure stack options", go to the bottom of the page and click next.  No options are required to be changed here.
+6. At stack creation, "Step 3: Configure stack options", go to the bottom of the page and click **Next**.  No other changes are required here.
 7. At stack creation, "[Step 4: Review](../images/create-dependency-stack-4.jpg)", check the box at the bottom to accept there will be resources created as part of the stack creation, and click next.
 8. Review the resources created, which may include your S3 bucket, but will include one supporting Lambda function and two Forecast-related IAM roles.   You can click on any of the Physical ID links to review their definition.<br><br>![CloudFormation Resource Review](../images/create-dependency-stack-resources.jpg)<br><br>
 
 
 
-## Deploy the Low-code No-code Retail Forecasting Pipeline
+## Deploy the Low-code No-code Forecasting Pipeline
 
 1. Navigate to [CloudFormation service](https://us-west-2.console.aws.amazon.com/cloudformation) once again.
 3.  Click the "Create Stack, with new resources (Standard)".
-4.  Provide "forecasting-pipeline" as the Stack Name and provide the following URL as the Amazon S3 URL.  You may [download the file](https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/forecast-mlops-solution-guidance.yaml) locally or clone using git.
+4.  Provide "electronics" as the Stack Name and provide the following URL as the Amazon S3 URL.  You may [download the file](https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/forecast-mlops-solution-guidance.yaml) locally or clone using git.
 
 	 ```
      https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/forecast-mlops-solution-guidance.yaml
@@ -47,7 +47,7 @@ This example illustrates how to forecast retail product demand using Amazon Fore
 |Stack name|retaildemo|
 |DatasetGroupFrequencyRTS|W|
 |DatasetGroupFrequencyTTS|W|
-|DatasetGroupName|retaildemo|
+|DatasetGroupName|electronics|
 |DatasetIncludeItem|false|
 |DatasetIncludeRTS|true|
 |ForecastForecastTypes|["0.50"]|
@@ -167,7 +167,38 @@ These next set of values are multi-line and can be copied to your clipboard with
 
 6. Once you have prepared the data to conform to the shape to the RTS and TTS above, place the files in your S3 bucket, inside a child <b>retaildemo</b> folder.  Please note the S3 bucket and child stack folder that will contain the tts and rts folder should match the Stack Name and S3 bucket name from above.  Stated differently, if your Stack Name is abc123, the top-level folder in your S3 bucket should also be named abc123.
 
-7. Resume the overall instruction set for MLOps [here](https://github.com/aws-samples/amazon-forecast-samples/blob/main/ml_ops/docs/UploadData.md).
+
+
+## Upload Data 
+
+You may repeat this process as a quick start for each use case you intend to deploy.  Since each deployment is mutually exclusive from the other, you can operate each stack independently.
+
+In the prior step at the [Solution Guidance](SolutionGuidance.md) stack creation, a **S3Bucket**  and **StackName** parameter were provided.
+
+This step guides how to deposit files on S3 in a structure the deployment is expecting.  
+
+1. If you are using the provided sample dataset, download [Food Demand](https://amazon-forecast-samples.s3.us-west-2.amazonaws.com/ml_ops/FoodDemand.zip) to your laptop and unzip the file which will create three files (RTS, TTS, Item metadata) inside three directories.
+
+2. In the AWS Console, navigate to the S3 service.  You can do this by typing S3 in the "search for services" control in the black menu bar and hitting enter.
+
+3. Once in S3, account buckets are listed.   Click on the bucket name you provided in the prior section to open the bucket.
+
+4. Once inside this bucket, it will be empty.  You will click "Create Folder" and provide the same string as your **StackName**.
+
+5. Next, click on the orange Upload button.
+
+6. Drag the three folders from your laptop and drop them in the S3 window waiting the upload.
+
+7. You should see 3 files in the list of files and folders.  Click on Upload at the bottom of this page.
+
+8. Once the upload is complete, your AWS Console should look like this screenshot below.  In the example, the StackName is aiml42.
+<br><br>
+![S3 Upload](../images/s3-inputs.jpg)
+<br><br>
+
+
+## Run the Forecast Pipeline
+
 
 
 ## Conclusion
